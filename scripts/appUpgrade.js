@@ -1,5 +1,5 @@
 // -------------------------- Current App Version  -------------------------- //
-// Changed my App
+// Changed my App These are the changes
 var currentAppVersion = 3.4;
 
 // -------------------------- Current App Version  -------------------------- //

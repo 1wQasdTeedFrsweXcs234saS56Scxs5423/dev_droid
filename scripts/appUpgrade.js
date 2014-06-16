@@ -1,5 +1,5 @@
 // -------------------------- Current App Version  -------------------------- //
-// Changed my App These are the changes
+// Saikat Made Changes to this File
 var currentAppVersion = 3.4;
 
 // -------------------------- Current App Version  -------------------------- //

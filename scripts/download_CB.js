@@ -1975,7 +1975,22 @@ function backPage(pageIdnew)
 {
     if(pageIdnew == "detailMediaPage")
     {
-
+//    	console.log('eventsFlag'+eventsFlag);
+//    	console.log('mediaFlag'+mediaFlag);
+//    	console.log('spotLightFlag'+spotLightFlag);
+//    	
+//    	console.log("searchFromMediaPage"+searchFromMediaPage);
+//   	 console.log("searchFromEventsPage"+searchFromEventsPage);
+//   	 console.log("searchFromSpotlightPage"+searchFromSpotlightPage);
+//   	 console.log("searchFromUpcomingEventsPage"+searchFromUpcomingEventsPage);
+//   	 console.log("searchFromTAListResultPage"+searchFromTAListResultPage);
+//   	 console.log("searchFromAuthorDetailPage"+searchFromAuthorDetailPage);
+//   	 console.log("searchFromDownloadsPage"+searchFromDownloadsPage);
+//   	 console.log("searchFromMainPage"+searchFromMainPage);
+//   	 console.log("searchFromContactUsPage"+searchFromContactUsPage);
+//   	 console.log("searchFromAboutPage"+searchFromAboutPage);
+//   	 console.log("searchFromFaqPage"+searchFromFaqPage);
+//   	 console.log("searchFroSubscribPage"+searchFroSubscribPage);
     	
     	var sptFlagGlobal = window.localStorage.getItem("spotLightFlag");
   	
@@ -2010,7 +2025,6 @@ function backPage(pageIdnew)
 
     	             $.mobile.changePage("#TAListResult",{transition: "none"});
                 }else{
-                        
                      	$.mobile.changePage("#businessCategory",{transition: "none"});
                      }	
                 
@@ -2027,7 +2041,6 @@ function backPage(pageIdnew)
             }
             else
             {
-                        
 		               $.mobile.changePage("#businessCategory",{transition: "none"});
 		               //refreshList();
 		               resetFilter();
@@ -2050,8 +2063,7 @@ function backPage(pageIdnew)
     	}
 else if(pageIdnew =='TAListResult' || pageIdnew=='UpcomingEventsPage'|| pageIdnew=='aboutTectTimePage' || pageIdnew=='contactUsPage' || pageIdnew=='faqPage')
     {
-	alert("contactUsPage : "+pageIdnew);
-        setSearchTips();
+	//alert("contactUsPage : "+pageIdnew);
         $.mobile.changePage("#businessCategory",{transition: "none"});
     }
 else if(pageIdnew =='playlistsItemPage')
@@ -2283,9 +2295,6 @@ else if(pageIdnew =='addToPlaylistPage')
 	        showTAListResult(catName, catId);
 	        $.mobile.changePage("#TAListResult",{transition: "none"});
 	        
-	        //Clear search strip
-	        clearSearchTipfromSearch();
-	        
 	    }
 	    else if(searchFromAuthorDetailPage)
 	    {
@@ -2309,8 +2318,6 @@ else if(pageIdnew =='addToPlaylistPage')
 	    }
 	    else if(searchFromAboutPage)
 	    {
-	    
-	   
 	        showAboutTTArea();
 	        $.mobile.changePage("#aboutTectTimePage",{transition: "none"});
 	    }
@@ -2347,8 +2354,6 @@ else if(pageIdnew =='addToPlaylistPage')
 	    
 	    else if(searchFromFaqPage)
 	    {
-	    alert("faq");
-	    clearSearchTipfromSearch();
 	        showFaqContent();
 	        $.mobile.changePage("#faqPage",{transition: "none"});
 	    }

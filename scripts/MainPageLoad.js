@@ -128,7 +128,6 @@ function getSubscribeRss() {
 
 
 	
-	
 
 	subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
 	subscribeRss = subscribeRss + uName;
@@ -1830,19 +1829,11 @@ function pendingDownloads(JData)
 
 
 function checkFileExistsEve(filefullpath, testid, name, link, type) {
-	if(name == "thumb")
-       {
-            if(downloadedThumbs.indexOf(testid + "thumb.png") == -1)
-                {
-                    downloadThumbImages(testid, name, link, type);
-                }
-       } else if(name == "actual")
-       {
-            if(downloadedThumbs.indexOf(testid + "actual.png") == -1)
-                {
-                    downloadThumbImages(testid, name, link, type);
-                }
-       }
+	window.resolveLocalFileSystemURI(filefullpath, function() {
+	}, function() {
+		// console.log("checkFileExists fail new"+testid);
+		downloadThumbImages(testid, name, link, type);
+	});
 }
 
 function showCategoriesListTT(data) {

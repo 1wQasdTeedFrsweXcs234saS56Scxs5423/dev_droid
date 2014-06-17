@@ -1238,10 +1238,7 @@ function showTAListResult(currentCategory, currentCategoryId) {
 				oldItem.type);
 	});
 	
-	
 		$.each(jsonData.contributor, function(key, oldItem) {
-		
-
 		chkpath = '';
 		chkpath = appendPath + oldItem.itemId + "actual.png";
 		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
@@ -1302,37 +1299,32 @@ function showAuthorDetailPage(authorName) {
 
 							var actualLocal = '';
 							
-							//alert("itemContributor.itemId  -- " + itemContributor.itemId );
-						
-						if(isOnline)
-						{
-							if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") != -1)
-								{
-									actualLocal = sPath + "/images/"+itemContributor.itemId + "actual.png";
-								} else if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") == -1)
-								{
-									if(itemContributor.actual != "")
+							
+							if(isOnline)
+							{
+								if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") != -1)
 									{
-									actualLocal = itemContributor.actual;
-									} else if(itemContributor.actual == "")
+										actualLocal = sPath + "/images/"+itemContributor.itemId + "actual.png";
+									} else if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") == -1)
 									{
-									actualLocal = 'images/TechTime.png';
+										if(itemContributor.actual != "")
+										{
+										actualLocal = itemContributor.actual;
+										} else if(itemContributor.actual == "")
+										{
+										actualLocal = 'images/TechTime.png';
+										}
 									}
-								}
-						} else if(!isOnline)
-						{
-							if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") != -1)
-								{
-									actualLocal = sPath + "/images/"+itemContributor.itemId + "actual.png";
-								} else if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") == -1)
-								{
-									actualLocal = 'images/TechTime.png';
-								}
-						}
-						
-					
-						
-
+							} else if(!isOnline)
+							{
+								if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") != -1)
+									{
+										actualLocal = sPath + "/images/"+itemContributor.itemId + "actual.png";
+									} else if(downloadedActuals.indexOf(itemContributor.itemId + "actual.png") == -1)
+									{
+										actualLocal = 'images/TechTime.png';
+									}
+							}
 
 							strHTMLDetail = strHTMLDetail
 									+ "<br><div class='detailPageDiv' style='border :none'><table border='0' class='detailPageTable'><tr><td style='width : 30%'>";
@@ -3334,76 +3326,58 @@ function showmoreresultSearch(variable) {
 function showDownloadedIcons(itemRes) {
 	var appendIconsHTML = '';
 	var fileName = '';
-	
+	 
 
 	if(itemRes.type == "Audios")
 	{
-		fileName = 'A';
+	fileName = 'A';
 	} else if(itemRes.type == "Videos")
 	{
-		fileName = 'V';
+	fileName = 'V';
 	} else if(itemRes.type == "Technology Sessions")
 	{
-		fileName = 'V';
+	fileName = 'V';
 	} else if(itemRes.type == "Panel Discussions" || itemRes.type == "Panel Discussion" || itemRes.type == "Pannel Discussions")
 	{
-		fileName = 'P';
+	fileName = 'P';
 	} else if(itemRes.type == "Interviews")
 	{
-		fileName = 'I';
+	fileName = 'I';
 	} else if(itemRes.type == "Technology Conferences" || itemRes.type == "Technology Conference")
 	{
-		fileName = 'T'
+	fileName = 'T'
 	} else if(itemRes.type == "Documents" || itemRes.type == "documents")
 	{
-		fileName = 'D';
+	fileName = 'D';
 	} 
 
 
 	if (downloadedFiles.indexOf(fileName+'A'+itemRes.itemId + '.mp3') != -1) {
-		appendIconsHTML += "<img src='images/icon_audio.png' style='height:11px;width:11px;'/>&nbsp;";
+	appendIconsHTML += "<img src='images/icon_audio.png' style='height:11px;width:11px;'/>&nbsp;";
 	}
 
 	if (downloadedFiles.indexOf(fileName+'V'+itemRes.itemId + '.mp4') != -1) {
-		appendIconsHTML += "<img src='images/icon_video.png' style='height:11px;width:11px;'/>&nbsp;";
+	appendIconsHTML += "<img src='images/icon_video.png' style='height:11px;width:11px;'/>&nbsp;";
 	}
 
 	if (downloadedFiles.indexOf(fileName+'P'+itemRes.itemId + '.pdf') != -1) {
-		appendIconsHTML += "<img src='images/icon_presentation.png' style='height:11px;width:11px;'/>&nbsp;";
+	appendIconsHTML += "<img src='images/icon_presentation.png' style='height:11px;width:11px;'/>&nbsp;";
 	}
 
 	if (downloadedFiles.indexOf(fileName+'T'+itemRes.itemId + '.pdf') != -1) {
-		appendIconsHTML += "<img src='images/icon_transcript.png' style='height:11px;width:11px;'/>&nbsp;";
+	appendIconsHTML += "<img src='images/icon_transcript.png' style='height:11px;width:11px;'/>&nbsp;";
 	}
 
 	if (downloadedFiles.indexOf(fileName+'D'+itemRes.itemId + '.pdf') != -1) {
-	alert("checking -- " + downloadedFiles.indexOf(fileName+'D'+itemRes.itemId + '.pdf') != -1);
-		appendIconsHTML += "<img src='images/icon_document.png' style='height:11px;width:11px;'/>&nbsp;";
+
+	appendIconsHTML += "<img src='images/icon_document.png' style='height:11px;width:11px;'/>&nbsp;";
 	}
 
 	return appendIconsHTML;
 	appendIconsHTML = '';
-}
+	}
 
 function clearSearchTipfromSearch() {
-	$('#searchTAListResult').val('Search');
-	$('#searchDetailMediaPage').val('Search');
-	$('#searchdetailAuthor').val('Search');
-	$('#searchUpcomingEventsPage').val('Search');
-	$('#searchSubscribePage').val('Search');
-	$('#searchAboutTectTimePage').val('Search');
-	$('#searchContactUsPage').val('Search');
-	$('#searchFaqPage').val('Search');
-	$('#searchsearchResultPage').val('Search');
-	$('#searchBusinessCategory').val('Search');
-	$('#searchTechWatchPage').val('Search');
-	$('#searchPlaylistsPage').val('Search');
-	$('#searchplaylistsItemPage').val('Search');
-	$('#searchSharePlaylistsPage').val('Search');
-	$('#searchAddToPlaylistPage').val('Search');	
-}
-
-function setSearchTips() {
 	$('#searchTAListResult').val('Search');
 	$('#searchDetailMediaPage').val('Search');
 	$('#searchdetailAuthor').val('Search');

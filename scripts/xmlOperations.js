@@ -178,7 +178,7 @@ function getListElement(itemRes,count,itemId,itemIndex)
                 }else{
             strHTMLshowTAList += "<a id="+itemId+" href='#detailMediaPage' data-transition='slide' onclick=detailPageView('"+itemRes.itemId+"','"+type1+"',"+count+") style='text-decoration:none;font-style:normal;color:black;display:none;overflow :hidden' >";
         } 
-        strHTMLshowTAList = strHTMLshowTAList + "<table border=0  style='width:100%;margin:0px;padding:0px;margin-top:5px;margin-bottom: 5px;border-bottom:1px solid grey;' cellpadding='0' cellspacing='0' >";
+        strHTMLshowTAList = strHTMLshowTAList + "<table border=0  style='width:100%;margin:0px;padding:0px;margin-top:5px;margin-bottom: 5px; border-bottom:1px solid grey;' cellpadding='0' cellspacing='0' >";
         strHTMLshowTAList = strHTMLshowTAList + "<tr><td id='"+itemRes.itemId+"' style='margin:0px;padding:0px;width:25%;height:100px;' rowspan='3' >";
         strHTMLshowTAList = strHTMLshowTAList + "<img src='"+actualThumb+"' style='height:75px;width:75px;border:solid 1px;margin:auto;margin-left:15px;margin-top:2%'></img></td>";
         strHTMLshowTAList = strHTMLshowTAList + "<td style='margin:0px; padding:0px; width:65%;color: orange;font-style:bold;padding-left:12px;font-size:16px'><b>"+itemRes.title+"</b></td>";
@@ -187,7 +187,7 @@ function getListElement(itemRes,count,itemId,itemIndex)
         strHTMLshowTAList = strHTMLshowTAList + "</td></tr> <tr><td id='' style='margin:0px;padding:0px;width:65%;color: orange;font-size:14px;font-weight:100;padding-left:12px;'>"+authoNames+"</td></tr>";
         strHTMLshowTAList = strHTMLshowTAList + "<tr><td id='' style='margin:0px;padding:0px;width : 65%;font-size:16px;padding-left:16px;font-weight:100;'>"+itemRes.publishedDate+"\n";
         strHTMLshowTAList = strHTMLshowTAList +showDownloadedIcons(itemRes)+"</td>";
-        strHTMLshowTAList = strHTMLshowTAList + "<td id='' style='margin:0px; padding:0px; width:10%;' align='right'><embed src='images/icon_orangeRight.svg' type='image/svg+xml' width='100%' height='20px;' style='margin-right:15px;'/></td></tr></table><hr style='width:100%;background-color: grey; color: grey; margin-bottom:-10px;'></a></div>";
+        strHTMLshowTAList = strHTMLshowTAList + "<td id='' style='margin:0px; padding:0px; width:10%;' align='right'><embed src='images/icon_orangeRight.svg' type='image/svg+xml' width='100%' height='20px;' style='margin-right:15px;'/></td></tr></table><hr style='width:100%;background-color: grey; color: grey;margin-bottom:-10px;'></a></div>";
         
      
     
@@ -672,20 +672,14 @@ function detailPageView(elementId,type,countNum) //earlier 1100lines now 400
                                                                                                         strHTMLDetail = strHTMLDetail + "<div id='playlistItem" + cVId + "' data-playlistItemId=" + cVId + "'  data-playlistItemTitle='" + itemType.title + "' data-playlistItemDate='" + itemType.publishedDate + "' data-playlistItemAuthor='" + itemType.author + "' data-playlistItemUrl='" + vURL + "' data-playlistItemThumb='" + itemType.actual + "' class='detailPageButtonDiv' onclick='getAddToPlaylistItemDetails(this);showAddToPlaylist()'><img  src='images/addToPlaylist.png' height='100%' width='100%' class='detailPageButton''/></div><br>";
 
                                                                                                 }
-                                                                  alert(itemType.qna + " " + itemType.qna.length);
+                                                                  
                                                                                                 
-                                                                                    if(itemType.qna != "" || itemType.qna != " " ){
+                                                                                    if(itemType.qna != ""){
                                                                             strHTMLDetail = strHTMLDetail + "<a style='text-decoration:none;font-style:normal;' href='#qnaPage'>";
-                                                                                        
+                                                                         
                                                                             strHTMLDetail = strHTMLDetail + "<div id='"+itemType.title+"' title='"+itemType.qna+"' onclick= 'showQnA(this)' class='detailPageButtonDiv'><img src='images/btn_viewQA.png' height='100%' width='100%' class='detailPageButton' /></div></a><br>";
                                                                                     }
                                                                     
-                                                                               
-                                                                               
-                    
-                                                                               console.log("QQNNAA -- " + strHTMLDetail);
-                                                                               
-                                                                               
                                                                                
                                                                                strHTMLDetail = strHTMLDetail + "</td></tr>";
                                                                                

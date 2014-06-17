@@ -1,6 +1,6 @@
 // -------------------------- Current App Version  -------------------------- //
-// new changes doeee
-var currentAppVersion = 3.4;
+
+var currentAppVersion = 3.0;
 
 // -------------------------- Current App Version  -------------------------- //
 

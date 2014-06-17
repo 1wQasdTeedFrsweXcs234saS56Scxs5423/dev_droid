@@ -515,7 +515,7 @@ function showSortedTAListing(curCatId, curCatName,sortBySubCat,sortByMediaType,s
 
         
 
-        strHTMLshowTAList += "<div class = 'linkTransition' id='loadmoreTAList' style='height:30px;width:100%;border:1px solid #B3B3B3; background:#B3B3B3;text-align:center;color:white;padding-top:5px;font-size:16px;top-margin:-5px;' title='5' onclick='showmoreresultTAlist(this)'><b>Load More Results</b></div>";
+        strHTMLshowTAList += "<div class = 'linkTransition' id='loadmoreTAList' style='height:30px;width:100%; border:1px solid #B3B3B3; background:#B3B3B3;text-align:center;color:white;padding-top:5px;font-size:16px;top-margin:-5px;' title='5' onclick='showmoreresultTAlist(this)'><b>Load More Results</b></div>";
 
     }
 

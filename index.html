@@ -780,7 +780,7 @@
 				
 
 				<div class=dynamicDiv>
-					<a id="faq" class='anchorCategory test' href="#faqPage" onclick='clearSearchTipfromSearch();showFaqContent();displayContent()'>
+					<a id="faq" class='anchorCategory test' href="#faqPage" onclick='showFaqContent();displayContent()'>
 					<div style='color:white;'>
 						FAQs
 						<div id="" style="width : 50px; padding-top:4px; float:right;">
@@ -1191,7 +1191,7 @@
 			</table>
 			<hr style='width:100%;background-color: grey; color: grey; height:1px;'>
 			<div id="UpcomingEventsContentArea" style="background : #F0EFED;"></div>
-			<div id="noUpcomingEventsContentArea"></div>
+			<div id="noUpcomingEventsContentArea" style='min-height:50px;'></div>
 
 			<div id='navigateUpcomingEventsPage' class='navigateMenu'></div>
 			<!-- navigateMenu DIV -->
@@ -1819,14 +1819,16 @@
 									<a href="#" onclick='showSearchResult("prevSearch","TechnologySessions","Technology Sessions","null")' style='font-weight:normal;width:200px;'><img src='images/icon_video.png' height="14" width="20" style="margin-right:5%;padding-top:2px;padding-bottom:2px;padding-left:8px;">Technology Sessions</a>
 								</li>
 								<li>
-									<a href="#" onclick='showSearchResult("prevSearch","PanelDiscussions","Panel Discussions","null")' style='font-weight:normal;width:200px;'><img src='images/icon_panelDiscussion.png' height="12" width="20" style="margin-right:5%; padding-left:8px;padding-top:2px;padding-bottom:2px;" >Panel Discussions</a>
+									<a href="#" onclick='showSearchResult("prevSearch","Documents","Documents","null")' style='font-weight:normal;width:200px;'><img src='images/icon_document.png' height="10" width="20" style="margin-right:5%; padding-left:8px;padding-top:2px;padding-bottom:2px;">Documents</a>
 								</li>
 								<li>
 									<a href="#" onclick='showSearchResult("prevSearch","Interviews","Interviews","null")' style='font-weight:normal;width:200px;'><img src='images/icon_interview.png' height="10" width="20" style="margin-right:5%; padding-left:8px;padding-top:2px;padding-bottom:2px;">Interviews</a>
 								</li>
 								<li>
-									<a href="#" onclick='showSearchResult("prevSearch","Documents","Documents","null")' style='font-weight:normal;width:200px;'><img src='images/icon_document.png' height="10" width="20" style="margin-right:5%; padding-left:8px;padding-top:2px;padding-bottom:2px;">Documents</a>
+									<a href="#" onclick='showSearchResult("prevSearch","PanelDiscussions","Panel Discussions","null")' style='font-weight:normal;width:200px;'><img src='images/icon_panelDiscussion.png' height="12" width="20" style="margin-right:5%; padding-left:8px;padding-top:2px;padding-bottom:2px;" >Panel Discussions</a>
 								</li>
+						
+							
 								<li>
 									<a href="#" onclick='showSearchResult("prevSearch","TechnologyConferences","Technology Conferences","null")' style='font-weight:normal;width:200px;'><img src='images/icon_techConf.png' height="12" width="20" style="margin-right:5%;padding-top:2px;padding-bottom:2px;padding-left:8px;">Technology Conferences</a>
 								</li>
@@ -1926,6 +1928,15 @@
 
 			<div id="showProgressBar" style='font-size:15px; min-height:50px; background:none; width:100%;'></div>
 			<div id="allDownloads" style='font-size:15px; min-height:50px; background:none; width:100%;display:none;'></div>
+			<div class="footerPadding" style='background:#F0EFED;'>
+				<br>
+				<br>
+				
+				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label>
+				<br/> -->
+				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
+			</div>
+	
 
 			<div data-position="fixed" data-tap-toggle ="false" align="center" style="background:grey" class="toggleButtonDiv">
 				<fieldset data-role="controlgroup" data-type="horizontal">

@@ -41,53 +41,32 @@ function getListElement(itemRes,count,itemId,itemIndex)
                 var strHTMLshowTAList = '';
                 var actualThumb = '';
                 
-    
 
-   if(isOnline && itemRes.thumbLoc == '')
-   {
-   //online and not downloaded
-   actualThumb = itemRes.thumb;
-   //alert("online and not downloaded " + actualThumb);
-   //console.log("//online and not downloaded"+actualThumb);
-   }
-   else if(isOnline && itemRes.thumbLoc != '')
-   {
-   // online and downloaded
-   actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
-   //alert("online and downloaded " + actualThumb);
-  // console.log("//online and  downloaded"+actualThumb);
-
-   }
-   else if(!isOnline && itemRes.thumbLoc == '')
-   {
-   //offline and not downloaded
-   
-   //actualThumb = 'images/TechTime.png';
-                   actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
-  // alert("offline and not downloaded " + actualThumb);
-   // console.log("//offline and not downloaded"+actualThumb);
-
-   }
-   else if(!isOnline && itemRes.thumbLoc != '')
-   {
-//  offline and downloaded
-   actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
-   
-   //alert("offline and downloaded " + actualThumb);
-  // console.log("//offline and  downloaded"+actualThumb);
-
-   }
-   else
-   {
-   //default  
-   actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
-   //alert("default " + actualThumb);
-   // console.log("default"+actualThumb);
-   }
-   
-
-
-  
+    if(isOnline)
+    {
+        if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") != -1)
+        {
+            actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
+        } else if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") == -1)
+        {
+            if(itemRes.thumb != '')
+            {
+                actualThumb = itemRes.thumb;
+            } else if(itemRes.thumb == '')
+            {
+                actualThumb = "images/TechTime.png";
+            }
+        }
+    } else if(!isOnline)
+    {
+        if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") != -1)
+        {
+            actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
+        } else if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") == -1)
+        {
+            actualThumb = "images/TechTime.png";
+        }
+    } 
                     var authoNames = '';
                 $.each(itemRes.author, function(key, itemAuthor) {
                                 if (key == 0) {
@@ -180,7 +159,7 @@ function getListElement(itemRes,count,itemId,itemIndex)
         } 
         strHTMLshowTAList = strHTMLshowTAList + "<table border=0  style='width:100%;margin:0px;padding:0px;margin-top:5px;margin-bottom: 5px; border-bottom:1px solid grey;' cellpadding='0' cellspacing='0' >";
         strHTMLshowTAList = strHTMLshowTAList + "<tr><td id='"+itemRes.itemId+"' style='margin:0px;padding:0px;width:25%;height:100px;' rowspan='3' >";
-        strHTMLshowTAList = strHTMLshowTAList + "<img src='"+actualThumb+"' style='height:75px;width:75px;border:solid 1px;margin:auto;margin-left:15px;margin-top:2%'></img></td>";
+        strHTMLshowTAList = strHTMLshowTAList + "<img src='"+actualThumb+"' style='height:75px;width:75px;margin:auto;margin-left:15px;margin-top:2%'></img></td>";
         strHTMLshowTAList = strHTMLshowTAList + "<td style='margin:0px; padding:0px; width:65%;color: orange;font-style:bold;padding-left:12px;font-size:16px'><b>"+itemRes.title+"</b></td>";
         strHTMLshowTAList = strHTMLshowTAList + "<td style='margin:0px; padding:0px; width:10%;' rowspan='2' align='right'>";
         strHTMLshowTAList = strHTMLshowTAList + "<embed src='"+icons+"' type='image/svg+xml' style='height:20px;width:100%;border:none;padding:0px;margin-right:15px'/>";
@@ -1060,78 +1039,6 @@ $.each(data.techConf, function(key, oldItem){
 
                 });
 
-
-
-
-$.each(data.events, function(key, oldItem) {
-
-if (oldItem.thumbLoc == '') {
-                var eventsPath = sPath + "/images/";
-                var eventschkpath = eventsPath + oldItem.itemId + "thumb.png";
-                // console.log("check file path" + eventschkpath);
-                checkFileExistsEve(eventschkpath, oldItem.itemId, 'thumb',
-                                                oldItem.thumb, oldItem.type);
-                // downloadThumbImages(oldItem.itemId,'thumb',oldItem.thumb,oldItem.type);
-} else {
-
-                $.each(jsonData.events, function(key, newItem) {
-
-                                if (oldItem.itemId == newItem.itemId) {
-
-                                                newItem.thumbLoc = oldItem.thumbLoc;
-                                                // console.log('thumbnail events
-                                                // replaceeeeeeeeeeeeeeeeeeeeeee');
-                                }
-                });
-}
-
-if (oldItem.actualLoc == '') {
-
-                var eventsPath = sPath + "/images/";
-                var eventschkpath = eventsPath + oldItem.itemId + "actual.png";
-                checkFileExistsEve(eventschkpath, oldItem.itemId, 'actual',
-                                                oldItem.actual, oldItem.type);
-} else {
-                $.each(jsonData.events, function(key, newItem) {
-                                if (oldItem.itemId == newItem.itemId) {
-                                                newItem.actualLoc = oldItem.actualLoc;
-                                }
-                });
-}
-});
-
-$.each(data.contributor, function(key, oldItem) {
-
-if (oldItem.thumbLoc == '') {
-                var eventsPath = sPath + "/images/";
-                var eventschkpath = eventsPath + oldItem.itemId + "thumb.png";
-                // /console.log("check file path" + eventschkpath);
-                checkFileExistsEve(eventschkpath, oldItem.itemId, 'thumb',
-                                                oldItem.thumb, oldItem.type);
-                // downloadThumbImages(oldItem.itemId,'thumb',oldItem.thumb,oldItem.type);
-} else {
-
-                $.each(jsonData.contributor, function(key, newItem) {
-
-                                if (oldItem.itemId == newItem.itemId) {
-                                                newItem.thumbLoc = oldItem.thumbLoc;
-                                }
-                });
-}
-
-if (oldItem.actualLoc == '') {
-                var eventsPath = sPath + "/images/";
-                var eventschkpath = eventsPath + oldItem.itemId + "actual.png";
-                checkFileExistsEve(eventschkpath, oldItem.itemId, 'actual',
-                                                oldItem.actual, oldItem.type);
-} else {
-                $.each(jsonData.contributor, function(key, newItem) {
-                                if (oldItem.itemId == newItem.itemId) {
-                                                newItem.actualLoc = oldItem.actualLoc;
-                                }
-                });
-}
-});
 //alert( 'spotLightDownloaded'+jsonData.spotLightDownloaded.length);
 //alert( 'spotLight'+jsonData.spotLight.length);
 

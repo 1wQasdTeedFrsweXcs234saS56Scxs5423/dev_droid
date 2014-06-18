@@ -1069,7 +1069,9 @@ function selectPlaylistForSharing(selectedPlaylistForSharing)
   if(selectedPlaylistForSharing.checked)
   {
           selectedPlaylistsToShare.push(sharedPlaylistDetails);
-  } 
+  } else{
+  selectedPlaylistsToShare.splice(sharedPlaylistDetails);
+  }
   
 }
 

@@ -152,13 +152,7 @@ function showSpotLightContent() {
             $.each(jsonData.category, function (key, item) {
             	
             	allCat = allCat.substring(0, allCat.length);
-            	var n = allCat.split(",");
-
-            	 $.each(jsonData.spotLightDownloaded, function(key, oldItem){
-             		chkpath = sPath + "/images/" + oldItem.itemId + "thumb.png";
-             		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,'spotDownloaded');
-                 });
-                 
+            	var n = allCat.split(",");                 
             	 spotlightSubFlag = false;
                      var formatType = itemRes.formattype.replace(/\s+/g, '');
         //    	if(tempSubName == item.categoryname){

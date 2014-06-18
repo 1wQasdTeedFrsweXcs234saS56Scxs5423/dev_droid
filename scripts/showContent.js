@@ -1118,23 +1118,6 @@ var newname = ' ';
 var newlink = ' ';
 var newtype = ' ';
 
-function checkFileExists(filefullpath, testid, name, link, type) {
-	newid = ' ';
-	newid = testid;
-	newname = name;
-	newlink = link;
-	// alert("newlink" + newlink);
-	newtype = type;
-	// console.log("testid"+testid+"newid"+newid+"filefullpath"+filefullpath);
-
-	window.resolveLocalFileSystemURI(filefullpath, function() {
-	}, function() {
-		// console.log("checkFileExists fail new"+testid);
-		downloadThumbImages(testid, name, link, type);
-		// alert(testid + " " + name + " " + link + " " + type);
-	});
-}
-
 var currentCategoryOff = '';
 var currentCategoryIdOff = '';
 
@@ -1161,90 +1144,6 @@ function showTAListResult(currentCategory, currentCategoryId) {
 	document.getElementById('topic').innerHTML = 'Topic';
 
 	// showNavigateDiv("navigateDiv");
-
-	$.each(jsonData.audio, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		// console.log("check file path" + chkpath);
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-
-	});
-	$.each(jsonData.video, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-	$.each(jsonData.documents, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-
-	$.each(jsonData.panelDiscussions, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-
-	$.each(jsonData.interviews, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-
-	$.each(jsonData.techConf, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-	$.each(jsonData.technologySessions, function(key, oldItem) {
-		chkpath = appendPath + oldItem.itemId + "thumb.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'thumb', oldItem.thumb,
-				oldItem.type);
-
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-	
-		$.each(jsonData.contributor, function(key, oldItem) {
-		chkpath = '';
-		chkpath = appendPath + oldItem.itemId + "actual.png";
-		checkFileExistsEve(chkpath, oldItem.itemId, 'actual', oldItem.actual,
-				oldItem.type);
-	});
-
 	// compareAndUpdateJSON1(jsonData);
 	// setTimeout(getFileSystemRefForWriting(jsonData),2000);
 

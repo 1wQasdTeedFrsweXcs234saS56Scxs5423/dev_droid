@@ -1,14 +1,11 @@
 //----------------------------------- Global Variable used -----------------------------------------------------------------
-
 var noSubscribe = "false";
 var subscribeCatList = '';
 
 var jsonData = new Object();
 var mainCategoryList = new Array(); // used
-
 var audioListItem = new Array(); // not used
 var videoListItem = new Array(); // not used
-
 var eventListItem = new Array();
 var documentListItem = new Array();
 
@@ -17,7 +14,6 @@ var downloadListItemLinks = new Array();
 
 // ----------------------------------- FOR COPY THE CATEGOEY ID IN ARRAY
 // -----------------------------------------------------------------
-
 var audioVideoItemId = new Array();
 var eventItemId = new Array();
 var documentItemId = new Array();
@@ -25,16 +21,14 @@ var documentItemId = new Array();
 var taggedId = new Array();
 // ----------------------------------- Subscription Variable
 // -----------------------------------------------------------------
-
 var subscribeCategoryId = new Array(); // LIST OF CATEGORIED REGISTERED
 var isSubscribeDocument = "no"; // Document are Subscribe or not ??
 var isSubscribePodcast = "no"; // Podcast are Subscribe or not ??
-var isSubscribeEvent = "no"; 
+var isSubscribeEvent = "no";
 
 
 // ----------------------------------- RSS LINKS
 // --------------------------------------------------------------------------------
-
 var subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
 var technologyAreaListUrl = "https://techtime.accenture.com/techtimemobile/subscribe-service/all";
 
@@ -52,18 +46,15 @@ var techWatchRss = "https://techtime.accenture.com/mobile-tech-watch";
 
 //var playlistsRSS =  "http://10.0.2.2:8080/spotlight/playlists.xml" 
 
-	
-	var playlistsRSS = "https://techtime.accenture.com/playlists.xml";
+var playlistsRSS = "https://techtime.accenture.com/playlists.xml";
 
 //var techWatchRss = "https://techtime.accenture.com/techwatch_date2.xml";
- //var techWatchQuotesRss = "https://techtime.accenture.com/mobile-quotes-rss";
+//var techWatchQuotesRss = "https://techtime.accenture.com/mobile-quotes-rss";
 //var techWatchQuotesRss = "http://10.0.2.2:8080/techWatch/techwatchQuotes.xml";
-
 // ------------------------- Create JSON Structure -------------------------------
-
 var selectedCategoryId = '';
 var selectedCategoryName = '';
-	
+
 var resFinal = new Array();
 
 var formatTypeArr = new Array();
@@ -72,44 +63,43 @@ var formatTypeArr = new Array();
 // --------------------------------------------------------------------------------
 
 function createJsonFormat() {
-	//alert("create JSON format");
-	jsonData.category = new Array();
-	jsonData.audio = new Array();
-	jsonData.video = new Array();
-	jsonData.events = new Array();
-	jsonData.panelDiscussions = new Array();
-	jsonData.interviews = new Array();
-	jsonData.documents = new Array();
-	jsonData.techConf = new Array();
-	jsonData.techWatch = new Array();
-	
-	jsonData.spotLight = new Array();
-	jsonData.spotLightDownloaded = new Array();
+    //alert("create JSON format");
+    jsonData.category = new Array();
+    jsonData.audio = new Array();
+    jsonData.video = new Array();
+    jsonData.events = new Array();
+    jsonData.panelDiscussions = new Array();
+    jsonData.interviews = new Array();
+    jsonData.documents = new Array();
+    jsonData.techConf = new Array();
+    jsonData.techWatch = new Array();
 
-	
-	jsonData.contributor = new Array();
-	jsonData.aboutTechTime = new Array();
-	jsonData.faq = new Array();
-	jsonData.loggedUserName = '';
-	jsonData.pendingDownloads = new Array();
-	
-	jsonData.techWatch = new Array();
+    jsonData.spotLight = new Array();
+    jsonData.spotLightDownloaded = new Array();
+
+    jsonData.contributor = new Array();
+    jsonData.aboutTechTime = new Array();
+    jsonData.faq = new Array();
+    jsonData.loggedUserName = '';
+    jsonData.pendingDownloads = new Array();
+
+    jsonData.techWatch = new Array();
     jsonData.techWatchQuotes = new Array();
-    
+
     jsonData.listOfFiles = new Array();
     jsonData.playlists = new Array();
-  //Start:Added by Akshay for format change feature on 5/27/2014
-	jsonData.technologySessions = new Array();
-	//End
+    //Start:Added by Akshay for format change feature on 5/27/2014
+    jsonData.technologySessions = new Array();
+    jsonData.imagesToDownload = new Array();
+    //End
 }
 
 
 
-function createJsonPodtype(podtype)
-{
-	
-	jsonData[podtype] = new Array();
-	
+function createJsonPodtype(podtype) {
+
+    jsonData[podtype] = new Array();
+
 
 }
 
@@ -118,103 +108,90 @@ function createJsonPodtype(podtype)
 // Type -------------------------
 
 function getSubscribeRss() {
-	
-	var uName = document.getElementById("lblUserName").innerHTML;
-	
-	uName = uName.replace(/\./g, '_');
-	
-	window.localStorage.setItem("userName", uName);
-	jsonData.loggedUserName = uName;
+
+    var uName = document.getElementById("lblUserName").innerHTML;
+
+    uName = uName.replace(/\./g, '_');
+
+    window.localStorage.setItem("userName", uName);
+    jsonData.loggedUserName = uName;
 
 
-	
 
-	subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
-	subscribeRss = subscribeRss + uName;
-	
-	
-	
 
-	$.ajax({
-				type : "GET",
-				url : subscribeRss,
-				dataType : "xml",
-				success : subscribeTA,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('*******************************************************')
-					console.log('In getSubscribeRss Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************')
-				}
-			});
+    subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
+    subscribeRss = subscribeRss + uName;
+
+
+
+
+    $.ajax({
+        type: "GET",
+        url: subscribeRss,
+        dataType: "xml",
+        success: subscribeTA,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('*******************************************************')
+            console.log('In getSubscribeRss Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************')
+        }
+    });
 }
 
 function subscribeTA(xml) {
-	loadAboutTechTimeRss();
-	var flag = 0;
-  //newAppVersion = $(xml).find('item').attr('availableAppVersion');
-	
-	$(xml)
-			.find('item')
-			.each(
-					function() { // FIND PARENT CATEGORY
+    loadAboutTechTimeRss();
+    var flag = 0;
+    //newAppVersion = $(xml).find('item').attr('availableAppVersion');
+    $(xml).find('item').each(
 
-						var scategoryid = $(this).find('categoryid').text();
-						var asset_type = $(this).find('asset_type').text();
-						var scategoryname = $(this).find('categoryname').text();
+    function () { // FIND PARENT CATEGORY
+        var scategoryid = $(this).find('categoryid').text();
+        var asset_type = $(this).find('asset_type').text();
+        var scategoryname = $(this).find('categoryname').text();
 
-						if ((scategoryid != "") && (flag == "1")) {
-							subscribeCategoryId.push(scategoryid);
+        if ((scategoryid != "") && (flag == "1")) {
+            subscribeCategoryId.push(scategoryid);
 
-							if (subscribeCatList == '') {
-								subscribeCatList = scategoryid;
-							} else {
-								subscribeCatList = subscribeCatList + '+'
-										+ scategoryid;
-							}
-						}
-						if (($(this).find('asset_type').text())
-								&& (asset_type == "documents")) {
-							isSubscribeDocument = "yes";
-						}
-						if (($(this).find('asset_type').text())
-								&& (asset_type == "podcast")) {
-							isSubscribePodcast = "yes";
-						}
-						
-						if (($(this).find('asset_type').text())
-								&& (asset_type == "events")) {
-								isSubscribeEvent = "yes";
-								}
+            if (subscribeCatList == '') {
+                subscribeCatList = scategoryid;
+            } else {
+                subscribeCatList = subscribeCatList + '+' + scategoryid;
+            }
+        }
+        if (($(this).find('asset_type').text()) && (asset_type == "documents")) {
+            isSubscribeDocument = "yes";
+        }
+        if (($(this).find('asset_type').text()) && (asset_type == "podcast")) {
+            isSubscribePodcast = "yes";
+        }
+
+        if (($(this).find('asset_type').text()) && (asset_type == "events")) {
+            isSubscribeEvent = "yes";
+        }
 
 
-						flag = 1;
-					});
+        flag = 1;
+    });
 
-	if (subscribeCatList == "") {
-		subscribeCatList = '0';
-	} else {
-		rssUrl = "https://techtime.accenture.com/techno-areas/"
-				+ subscribeCatList + "/audio-video-listing-view";
-		console.log("Saikat Services -- " + rssUrl);
-		
-		eventsRss = "https://techtime.accenture.com/techno-areas/"
-				+ subscribeCatList + "/events-listing-view";
-		documentRss = "https://techtime.accenture.com/techno-areas/"
-				+ subscribeCatList + "/documents-listing-view";
+    if (subscribeCatList == "") {
+        subscribeCatList = '0';
+    } else {
+        rssUrl = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/audio-video-listing-view";
+        console.log("Saikat Services -- " + rssUrl);
 
-		
-		
-		 console.log('rssUrl-->'+rssUrl+'\n eventsRss'+eventsRss+'\n documentRss'+documentRss);
-		 
-		// rssUrl = "<item>		<title>TGP SAP Mobility</title>		<description><![CDATA[TGP SAP Mobility by Jordi Paris]]></description>		<author_count>1</author_count>		<author>Jordi Paris</author>		<category><![CDATA[SAP-1|Mobility-3]]></category>		<pods_date>January 28, 2013</pods_date>				<audio length=3360216 type=audio/mpeg>https://techtime.accenture.com/sites/default/files/mobile_audio/TGP_SAP_Mobility_V1_0.mp3</audio>				<video length=21340040 type=video/mp4>https://techtime.accenture.com/sites/default/files/mobile_videos/TGP_SAP_Mobility_V1.0.mp4</video>		<transcript  ></transcript>	<presentation ></presentation>		<qna><![CDATA[]]></qna>	<actual length=38697 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_large/TGP_SAP_Mobility_mobile_large.png</actual><thumb length=16939 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_thumb/TGP_SAP_Mobility_mobile_small.png</thumb><contentid>964</contentid><content_type>podcast</content_type><pubDate>March 1, 2013 - 12:09 am</pubDate><pods_formattype>Audios</pods_formattype><Content_lang>en</Content_lang><Content_rating>0</Content_rating></item>"
-	}
-//	checkForApplicationUpgradeAvailability();
+        eventsRss = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/events-listing-view";
+        documentRss = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/documents-listing-view";
 
-	loadtechnologyAreaListUrl(); // SAGAR
+
+
+        console.log('rssUrl-->' + rssUrl + '\n eventsRss' + eventsRss + '\n documentRss' + documentRss);
+
+        // rssUrl = "<item>		<title>TGP SAP Mobility</title>		<description><![CDATA[TGP SAP Mobility by Jordi Paris]]></description>		<author_count>1</author_count>		<author>Jordi Paris</author>		<category><![CDATA[SAP-1|Mobility-3]]></category>		<pods_date>January 28, 2013</pods_date>				<audio length=3360216 type=audio/mpeg>https://techtime.accenture.com/sites/default/files/mobile_audio/TGP_SAP_Mobility_V1_0.mp3</audio>				<video length=21340040 type=video/mp4>https://techtime.accenture.com/sites/default/files/mobile_videos/TGP_SAP_Mobility_V1.0.mp4</video>		<transcript  ></transcript>	<presentation ></presentation>		<qna><![CDATA[]]></qna>	<actual length=38697 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_large/TGP_SAP_Mobility_mobile_large.png</actual><thumb length=16939 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_thumb/TGP_SAP_Mobility_mobile_small.png</thumb><contentid>964</contentid><content_type>podcast</content_type><pubDate>March 1, 2013 - 12:09 am</pubDate><pods_formattype>Audios</pods_formattype><Content_lang>en</Content_lang><Content_rating>0</Content_rating></item>"
+    }
+    //	checkForApplicationUpgradeAvailability();
+    loadtechnologyAreaListUrl(); // SAGAR
 }
 
 // ----------------------------------- Load Main category RSS and Create list of
@@ -222,22 +199,19 @@ function subscribeTA(xml) {
 
 function loadtechnologyAreaListUrl() {
 
-	$
-			.ajax({
-				type : "GET",
-				url : technologyAreaListUrl,
-				dataType : "xml",
-				success : displayTAList,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('*******************************************************')
-					console.log(' loadtechnologyAreaListUrl In Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************')
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: technologyAreaListUrl,
+        dataType: "xml",
+        success: displayTAList,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('*******************************************************')
+            console.log(' loadtechnologyAreaListUrl In Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************')
+        }
+    });
 }
 
 
@@ -245,125 +219,114 @@ function loadtechnologyAreaListUrl() {
 
 function displayTAList(xml) {
 
-	$(xml).find('item').each(function() { // FIND PARENT CATEGORY
+    $(xml).find('item').each(function () { // FIND PARENT CATEGORY
+        if ($(this).find('parentcategoryid').text() == '0') {
 
-		if ($(this).find('parentcategoryid').text() == '0') {
+            var flagId = "false";
+            var id = $(this).find('categoryid').text();
 
-			var flagId = "false";
-			var id = $(this).find('categoryid').text();
+            $.each(subscribeCategoryId, function (index, catid) { // Check for
+                // the
+                // subscription
+                if (catid == id) {
+                    flagId = "true";
+                    noSubscribe = "true";
+                }
+            });
 
-			$.each(subscribeCategoryId, function(index, catid) { // Check for
-																	// the
-																	// subscription
+            if (flagId == "true") {
 
-				if (catid == id) {
-					flagId = "true";
-					noSubscribe = "true";
-				}
-			});
-
-			if (flagId == "true") {
-
-				var mainCat = new Object();
-				mainCat.categoryid = $(this).find('categoryid').text();
-				mainCat.categoryname = $(this).find('categoryname').text();
-				mainCat.subCategoryCount = '';
-				mainCat.subCategory = '';
-				mainCat.subscribe = 'yes';
-				mainCat.subscribeDocuments = isSubscribeDocument;
-				mainCat.subbscribePodcast = isSubscribePodcast;
-				mainCat.subbscribeEvent = isSubscribeEvent;
+                var mainCat = new Object();
+                mainCat.categoryid = $(this).find('categoryid').text();
+                mainCat.categoryname = $(this).find('categoryname').text();
+                mainCat.subCategoryCount = '';
+                mainCat.subCategory = '';
+                mainCat.subscribe = 'yes';
+                mainCat.subscribeDocuments = isSubscribeDocument;
+                mainCat.subbscribePodcast = isSubscribePodcast;
+                mainCat.subbscribeEvent = isSubscribeEvent;
 
 
-				mainCategoryList.push(mainCat);
-			} else {
+                mainCategoryList.push(mainCat);
+            } else {
 
-				var mainCat = new Object();
-				mainCat.categoryid = $(this).find('categoryid').text();
-				mainCat.categoryname = $(this).find('categoryname').text();
-				mainCat.subCategoryCount = '';
-				mainCat.subCategory = '';
-				mainCat.subscribe = 'no';
-				mainCat.subscribeDocuments = 'no';
-				mainCat.subbscribePodcast = 'no';
-				mainCat.subbscribeEvent = 'no';
+                var mainCat = new Object();
+                mainCat.categoryid = $(this).find('categoryid').text();
+                mainCat.categoryname = $(this).find('categoryname').text();
+                mainCat.subCategoryCount = '';
+                mainCat.subCategory = '';
+                mainCat.subscribe = 'no';
+                mainCat.subscribeDocuments = 'no';
+                mainCat.subbscribePodcast = 'no';
+                mainCat.subbscribeEvent = 'no';
 
 
-				mainCategoryList.push(mainCat);
-			}
-		} // IF
-	
-	});
-	//console.log('mainCategoryList---->'+JSON.stringify(mainCategoryList));
+                mainCategoryList.push(mainCat);
+            }
+        } // IF
+    });
+    //console.log('mainCategoryList---->'+JSON.stringify(mainCategoryList));
+    $.each(
+    mainCategoryList, function (index, item) { // FIND SUB-CATEGORY FOR PARENT
+        // CATEGORY
+        var subCategoryList = new Array();
 
-	$
-			.each(
-					mainCategoryList,
-					function(index, item) { // FIND SUB-CATEGORY FOR PARENT
-											// CATEGORY
+        var subCat = new Object(); // PUSHING PARENT ELEMENT AS
+        // SUB CATEGORY ONLY
+        subCat.categoryid = item.categoryid;
+        subCat.parentcategoryid = item.categoryid;
+        subCat.subCategoryName = item.categoryname;
+        subCat.audio = new Array();
+        subCat.video = new Array();
+        subCat.interviews = new Array();
+        subCat.panelDiscussions = new Array();
+        subCat.technologySessions = new Array();
+        subCat.document = new Array();
+        subCat.event = new Array();
+        subCat.techConf = new Array();
+        subCat.contributor = new Array();
+        //subCat.spotlight = new Array();
+        subCategoryList.push(subCat);
 
-						var subCategoryList = new Array();
+        $(xml).find('item').each(
 
-						var subCat = new Object(); // PUSHING PARENT ELEMENT AS
-													// SUB CATEGORY ONLY
-						subCat.categoryid = item.categoryid;
-						subCat.parentcategoryid = item.categoryid;
-						subCat.subCategoryName = item.categoryname;
-						subCat.audio = new Array();
-						subCat.video = new Array();
-						subCat.interviews = new Array();
-						subCat.panelDiscussions = new Array();
-						subCat.technologySessions = new Array();
-						subCat.document = new Array();
-						subCat.event = new Array();
-						subCat.techConf = new Array();
-						subCat.contributor = new Array();
-						//subCat.spotlight = new Array();
+        function () { // FIND ANOTHER SUB
+            // CATEGORY AND PUSH IT
+            // TO ARRAY AS A
+            // SUB-CATEGORY
+            if ($(this).find('parentcategoryid').text() == item.categoryid) {
+                var subCat = new Object();
+                subCat.categoryid = $(this).find('categoryid').text();
+                subCat.parentcategoryid = $(this).find('parentcategoryid').text();
+                subCat.subCategoryName = $(this).find('categoryname').text();
 
-						subCategoryList.push(subCat);
+                subCat.audio = new Array();
+                subCat.video = new Array();
+                subCat.interviews = new Array();
+                subCat.panelDiscussions = new Array();
+                subCat.document = new Array();
+                subCat.event = new Array();
+                subCat.techConf = new Array();
+                subCat.contributor = new Array();
+                //subCat.spotlight = new Array();
+                subCat.technologySessions = new Array();
 
-						$(xml).find('item').each(
-										function() { // FIND ANOTHER SUB
-														// CATEGORY AND PUSH IT
-														// TO ARRAY AS A
-														// SUB-CATEGORY
+                subCategoryList.push(subCat);
+            }
+        });
 
-											if ($(this).find('parentcategoryid').text() == item.categoryid) {
-												var subCat = new Object();
-												subCat.categoryid = $(this).find('categoryid').text();
-												subCat.parentcategoryid = $(this).find('parentcategoryid').text();
-												subCat.subCategoryName = $(this).find('categoryname').text();
+        item.subCategory = subCategoryList;
+        item.subCategoryCount = subCategoryList.length;
+    });
 
-												subCat.audio = new Array();
-												subCat.video = new Array();
-												subCat.interviews = new Array();
-												subCat.panelDiscussions = new Array();
-												subCat.document = new Array();
-												subCat.event = new Array();
-												subCat.techConf = new Array();
-												subCat.contributor = new Array();
-												//subCat.spotlight = new Array();
-												subCat.technologySessions = new Array();
+    //console.log('mainCategoryList + subCategory---->'+JSON.stringify(mainCategoryList));
+    $.each(mainCategoryList, function (index, item) {
 
-												subCategoryList.push(subCat);
-											}
-										});
+        jsonData.category.push(item);
+    });
 
-						item.subCategory = subCategoryList;
-						item.subCategoryCount = subCategoryList.length;
-					});
-	
-	//console.log('mainCategoryList + subCategory---->'+JSON.stringify(mainCategoryList));
-
-	$.each(mainCategoryList, function(index, item) {
-
-		jsonData.category.push(item);
-	});
-
-	//console.log('JSON CATEGORY---->'+JSON.stringify(jsonData.category));
-	
-	loadAudioVideoURL(); // SAGAR
-
+    //console.log('JSON CATEGORY---->'+JSON.stringify(jsonData.category));
+    loadAudioVideoURL(); // SAGAR
 }
 
 // ---------------------------------------- find Audio and Video List and isnert
@@ -371,340 +334,310 @@ function displayTAList(xml) {
 
 function loadAudioVideoURL() {
 
-	$
-			.ajax({
-				type : "GET",
-				url : rssUrl,
-				dataType : "xml",
-				success : getAudioVideoItem,
-				error : function(xhr, textStatus, errorThrown) {
-					console.log('*******************************************************')
-					console.log('In loadAudioVideoURL Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console.log('*******************************************************')
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: rssUrl,
+        dataType: "xml",
+        success: getAudioVideoItem,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('*******************************************************')
+            console.log('In loadAudioVideoURL Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************')
+        }
+    });
 }
 
 function getAudioVideoItem(xml) {
-//alert('getAudioVideoItem');
+    //alert('getAudioVideoItem');
+    $(xml).find('item').each(function () {
 
-	$(xml).find('item').each(function() {
+        try {
+            var audioLength = '';
+            var videoLength = '';
+            var presentationLength = '';
+            var transcriptLength = '';
 
-		try {
-			var audioLength = '';
-			var videoLength = '';
-			var presentationLength = '';
-			var transcriptLength = '';
+            var scategory = $(this).find('category').text();
 
-			var scategory = $(this).find('category').text();
+            var sguid = $(this).find('contentid').text();
+            var sTitle = $(this).find('title').text();
+            sTitle = sTitle.replace(/'/g, '');
 
-			var sguid = $(this).find('contentid').text();
-			var sTitle = $(this).find('title').text();
-			sTitle = sTitle.replace(/'/g,'');
+            //	sTitle= sTitle.replace(/[^A-Za-z\:\,\s]/g, "");
+            //console.log('AAAA_--'+sTitle);
+            var sFormat = $(this).find('pods_formattype').text();
+            formatTypeArr.push(sFormat);
+            formatTypeArr = $.unique(formatTypeArr);
 
-		//	sTitle= sTitle.replace(/[^A-Za-z\:\,\s]/g, "");
-			//console.log('AAAA_--'+sTitle);
-			
-			var sFormat = $(this).find('pods_formattype').text();
-			formatTypeArr.push(sFormat);			
-			formatTypeArr = $.unique(formatTypeArr);
-			
-			var lang  = $(this).find('Content_lang').text();
-			//console.log('Language--------------------'+lang);
-			var sauthor = $(this).find('author').text().replace(/\|/g, ',');
-			var spubDate = $(this).find('pods_date').text();
-			var sdescription = $(this).find('description').text();
-			var sqna = $(this).find('qna').text();
+            var lang = $(this).find('Content_lang').text();
+            //console.log('Language--------------------'+lang);
+            var sauthor = $(this).find('author').text().replace(/\|/g, ',');
+            var spubDate = $(this).find('pods_date').text();
+            var sdescription = $(this).find('description').text();
+            var sqna = $(this).find('qna').text();
 
-			var imgThumb = $(this).find('thumb').text();
-			var imgActual = $(this).find('actual').text();
+            var imgThumb = $(this).find('thumb').text();
+            var imgActual = $(this).find('actual').text();
 
-			var audioUrl = $(this).find('audio').text();
-			var videoUrl = $(this).find('video').text();
-			var transcriptUrl = $(this).find('transcript').text();
-			var presentationUrl = $(this).find('presentation').text();
+            var audioUrl = $(this).find('audio').text();
+            var videoUrl = $(this).find('video').text();
+            var transcriptUrl = $(this).find('transcript').text();
+            var presentationUrl = $(this).find('presentation').text();
 
-			$(this).find('audio').each(function() {
-				audioLength = $(this).attr('length');
-			});
+            $(this).find('audio').each(function () {
+                audioLength = $(this).attr('length');
+            });
 
-			$(this).find('video').each(function() {
-				videoLength = $(this).attr('length');
-			});
+            $(this).find('video').each(function () {
+                videoLength = $(this).attr('length');
+            });
 
-			$(this).find('transcript').each(function() {
-				transcriptLength = $(this).attr('length');
-			});
+            $(this).find('transcript').each(function () {
+                transcriptLength = $(this).attr('length');
+            });
 
-			$(this).find('presentation').each(function() {
-				presentationLength = $(this).attr('length');
-			});
+            $(this).find('presentation').each(function () {
+                presentationLength = $(this).attr('length');
+            });
 
-			var authorArray = new Array();
-			var authorTextArray = sauthor.split(",");
+            var authorArray = new Array();
+            var authorTextArray = sauthor.split(",");
 
-			for (i = 0; i < authorTextArray.length; i++) {
-				authorArray.push(authorTextArray[i]);
-			}
+            for (i = 0; i < authorTextArray.length; i++) {
+                authorArray.push(authorTextArray[i]);
+            }
 
-			if (jQuery.inArray(sguid, audioVideoItemId) == -1) {
-				audioVideoItemId.push(sguid);
-				//console.log('inserted :'+sguid);
+            if (jQuery.inArray(sguid, audioVideoItemId) == -1) {
+                audioVideoItemId.push(sguid);
+                //console.log('inserted :'+sguid);
+                var tempMedia = new Object();
 
-				var tempMedia = new Object();
+                tempMedia.itemId = sguid;
+                tempMedia.title = sTitle;
 
-				tempMedia.itemId = sguid;
-				tempMedia.title = sTitle;
-				
-				
-				tempMedia.category = scategory;
 
-				//tempMedia.type = sFormat;
-				
+                tempMedia.category = scategory;
+
+                //tempMedia.type = sFormat;
                 //Start:Akshay, format change
-                if((sFormat =="Audios") || (sFormat == "Videos"))
-                {
-                       sFormat = "Technology Sessions";
+                if ((sFormat == "Audios") || (sFormat == "Videos")) {
+                    sFormat = "Technology Sessions";
                 }
                 tempMedia.type = sFormat;
-     //tempMedia.type = ((sFormat == "Audios") || (sFormat == "Videos"))?"Technology Sessions":sFormat;
+                //tempMedia.type = ((sFormat == "Audios") || (sFormat == "Videos"))?"Technology Sessions":sFormat;
                 //End
 
-				
 
-				tempMedia.author = authorArray;
-				tempMedia.publishedDate = spubDate;
-				tempMedia.description = sdescription;
-				tempMedia.qna = sqna;
+                tempMedia.author = authorArray;
+                tempMedia.publishedDate = spubDate;
+                tempMedia.description = sdescription;
+                tempMedia.qna = sqna;
 
-				tempMedia.thumb = imgThumb;
-				tempMedia.actual = imgActual;
+                tempMedia.thumb = imgThumb;
+                tempMedia.actual = imgActual;
 
-				tempMedia.audioUrl = audioUrl;
-				tempMedia.audioLength = audioLength;
-				tempMedia.audioIsDownloaded = "false";
+                tempMedia.audioUrl = audioUrl;
+                tempMedia.audioLength = audioLength;
+                tempMedia.audioIsDownloaded = "false";
 
-				tempMedia.isDownloadedAudio = 'false';
-				tempMedia.localPathAudio = '';
-				tempMedia.downloadedDateA = '';
+                tempMedia.isDownloadedAudio = 'false';
+                tempMedia.localPathAudio = '';
+                tempMedia.downloadedDateA = '';
 
-				tempMedia.videoUrl = videoUrl;
-				tempMedia.videoLength = videoLength;
-				tempMedia.videoIsDownloaded = "false";
+                tempMedia.videoUrl = videoUrl;
+                tempMedia.videoLength = videoLength;
+                tempMedia.videoIsDownloaded = "false";
 
-				tempMedia.isDownloadedVideo = 'false';
-				tempMedia.localPathVideo = '';
-				tempMedia.downloadedDateV = '';
+                tempMedia.isDownloadedVideo = 'false';
+                tempMedia.localPathVideo = '';
+                tempMedia.downloadedDateV = '';
 
-				tempMedia.transcriptUrl = transcriptUrl;
-				tempMedia.transcriptLength = transcriptLength;
-				tempMedia.transcriptIsDownloaded = "false";
+                tempMedia.transcriptUrl = transcriptUrl;
+                tempMedia.transcriptLength = transcriptLength;
+                tempMedia.transcriptIsDownloaded = "false";
 
-				tempMedia.isDownloadedTranscript = 'false';
-				tempMedia.localPathTranscript = '';
-				tempMedia.downloadedDateT = '';
+                tempMedia.isDownloadedTranscript = 'false';
+                tempMedia.localPathTranscript = '';
+                tempMedia.downloadedDateT = '';
 
-				tempMedia.presentationUrl = presentationUrl;
-				tempMedia.presentationLength = presentationLength;
-				tempMedia.presentationIsDownloaded = "false";
+                tempMedia.presentationUrl = presentationUrl;
+                tempMedia.presentationLength = presentationLength;
+                tempMedia.presentationIsDownloaded = "false";
 
-				tempMedia.isDownloadedPresentation = 'false';
-				tempMedia.localPathPresentation = '';				
-				tempMedia.downloadedDateP = '';
+                tempMedia.isDownloadedPresentation = 'false';
+                tempMedia.localPathPresentation = '';
+                tempMedia.downloadedDateP = '';
 
-				tempMedia.thumbLoc = "";
-				tempMedia.actualLoc = "";
+                tempMedia.thumbLoc = "";
+                tempMedia.actualLoc = "";
 
-				tempMedia.selLanguage = lang;
-				
-				
-					//console.log('FORMAt-------------------'+lang);
-				if (sFormat == "Audios") {
-
-					jsonData.audio.push(tempMedia);
-
-				} else if (sFormat == "Videos") {
-
-					jsonData.video.push(tempMedia);
-
-				} else if (sFormat == "Panel Discussions") {
-
-					jsonData.panelDiscussions.push(tempMedia);
-
-				} else if (sFormat == "Interviews") { // Interviews
-
-					jsonData.interviews.push(tempMedia);
-				} else if( sFormat == "Technology Conferences")
-				
-				{
-					jsonData.techConf.push(tempMedia);
-					
-				}
-				else if(sFormat == "Technology Sessions") {
-					jsonData.technologySessions.push(tempMedia);
-				}
-				
-
-				var str = JSON.stringify(scategory);
-
-				//console.log('str---json :'+str);
-				str = str.substring(1, str.length-1);
-
-			
-					//console.log('after substr--- :'+str);
-				
-
-				var beg, end, temp;
-				var len = str.length;
-
-				beg = 0;
-
-				while (len != 0 && end != 0 && str != "") {
-					
-					
-					str = str.substring(0, str.length);
-					//console.log('str.substring(0, str.length-1)---'+str);
-
-					var n=str.split("|");  
-                   //console.log("n.length--->>"+n.length);
+                tempMedia.selLanguage = lang;
 
 
-					end = str.indexOf("-") + 1;
-					beg = str.indexOf("|");
-					len = str.length;
+                //console.log('FORMAt-------------------'+lang);
+                if (sFormat == "Audios") {
 
-					temp = str.substring(0, end - 1); 
+                    jsonData.audio.push(tempMedia);
 
-					
-					
+                } else if (sFormat == "Videos") {
 
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
+                    jsonData.video.push(tempMedia);
 
-				//	console.log('jsonData.category----'+JSON.stringify(jsonData.category));
+                } else if (sFormat == "Panel Discussions") {
 
-					$.each(jsonData.category, function(index, item) {
+                    jsonData.panelDiscussions.push(tempMedia);
 
-						$.each(item.subCategory, function(index, item) {
-							
-							 for(var i = 0; i < n.length;i++)
-							 	{
-								
-								// console.log("Sub Category Substring--> : "+temp+"=== n[i]"+n[i]);
-								 
-								 var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
-								 
-								 var tempSubId = n[i].substring(n[i].indexOf("-")+1,n[i].length);
-										//console.log("item.categoryid<====>tempSubId : : "+item.categoryid +"<====>"+tempSubId );
-								// console.log("Sub Category name + ID--> : "+tempSubName+"-"+tempSubId);		
+                } else if (sFormat == "Interviews") { // Interviews
+                    jsonData.interviews.push(tempMedia);
+                } else if (sFormat == "Technology Conferences")
 
-								 var completeId = tempSubName+"-"+tempSubId;
-								 var completeIdFromRss = item.subCategoryName+"-"+item.categoryid;
-								
-								 
-								 
-									//if (tempSubId == item.categoryid && item.subCategoryName == temp) {
-								 if (tempSubId == item.categoryid && item.subCategoryName == temp) {
-								// if(completeId == completeIdFromRss){
-									 
-									// console.log(completeId+ " == "+completeIdFromRss);	
-									 
-										if (sFormat == "Audios") {
-											item.audio.push(sguid); 
-											
-											
-											//alert('id  ->'+sguid+'\n  category matched -->'+temp+'\n Audios -->');
-											
-											
-										} 
-										else if (sFormat == "Videos") {
-											item.video.push(sguid); // alert('id
-																	// ->'+sguid+'\n
-																	// category matched
-																	// -->'+temp+'\n
-																	// Videos -->');
-										} 
-										else if (sFormat == "Panel Discussions") {
-											item.panelDiscussions.push(sguid); // alert('id
-																				// ->'+sguid+'\n
-																				// category
-																				// matched
-																				// -->'+temp+'\n
-																				// Panel
-																				// Discussions
-																				// -->');
-										}
-										else if (sFormat == "Technology Conferences")
-											{
-												item.techConf.push(sguid);
-											}
-										else if(sFormat == "Technology Sessions") {
-											item.technologySessions.push(sguid);
-										}
-										
-										else {
-											item.interviews.push(sguid); // alert('interviews
-																			// id
-																			// ->'+sguid+'\n
-																			// category
-																			// matched
-																			// -->'+temp+'\n
-																			// interviews
-																			// -->');
-										}
-										
-								}
-							}
-								
-								
-						});
-					});
+                {
+                    jsonData.techConf.push(tempMedia);
 
-					
-					
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
-
-					if (beg == -1) {
-						len = 0;
-					}
-
-					if (end == 0) {
-						len = 0;
-					}
-
-					temp = str.substring(beg + 1, str.length);
-					str = temp;
-					//alert(' CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>   :'+temp);
-
-				}// while
-				
+                } else if (sFormat == "Technology Sessions") {
+                    jsonData.technologySessions.push(tempMedia);
+                }
 
 
-			} else {
-				// console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
-			}
+                var str = JSON.stringify(scategory);
 
-			
+                //console.log('str---json :'+str);
+                str = str.substring(1, str.length - 1);
 
-			
-		} catch (error) {
-			var txt = " getAudioVideoItem - There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
-		}
-	});
 
-	
-	
-	loadEventsRss(); 
-	loadPlaylistsData();
+                //console.log('after substr--- :'+str);
 
-	
+                var beg, end, temp;
+                var len = str.length;
+
+                beg = 0;
+
+                while (len != 0 && end != 0 && str != "") {
+
+
+                    str = str.substring(0, str.length);
+                    //console.log('str.substring(0, str.length-1)---'+str);
+                    var n = str.split("|");
+                    //console.log("n.length--->>"+n.length);
+
+                    end = str.indexOf("-") + 1;
+                    beg = str.indexOf("|");
+                    len = str.length;
+
+                    temp = str.substring(0, end - 1);
+
+
+
+
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    //	console.log('jsonData.category----'+JSON.stringify(jsonData.category));
+                    $.each(jsonData.category, function (index, item) {
+
+                        $.each(item.subCategory, function (index, item) {
+
+                            for (var i = 0; i < n.length; i++) {
+
+                                // console.log("Sub Category Substring--> : "+temp+"=== n[i]"+n[i]);
+                                var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
+
+                                var tempSubId = n[i].substring(n[i].indexOf("-") + 1, n[i].length);
+                                //console.log("item.categoryid<====>tempSubId : : "+item.categoryid +"<====>"+tempSubId );
+                                // console.log("Sub Category name + ID--> : "+tempSubName+"-"+tempSubId);		
+                                var completeId = tempSubName + "-" + tempSubId;
+                                var completeIdFromRss = item.subCategoryName + "-" + item.categoryid;
+
+
+
+                                //if (tempSubId == item.categoryid && item.subCategoryName == temp) {
+                                if (tempSubId == item.categoryid && item.subCategoryName == temp) {
+                                    // if(completeId == completeIdFromRss){
+                                    // console.log(completeId+ " == "+completeIdFromRss);	
+                                    if (sFormat == "Audios") {
+                                        item.audio.push(sguid);
+
+
+                                        //alert('id  ->'+sguid+'\n  category matched -->'+temp+'\n Audios -->');
+
+                                    } else if (sFormat == "Videos") {
+                                        item.video.push(sguid); // alert('id
+                                        // ->'+sguid+'\n
+                                        // category matched
+                                        // -->'+temp+'\n
+                                        // Videos -->');
+                                    } else if (sFormat == "Panel Discussions") {
+                                        item.panelDiscussions.push(sguid); // alert('id
+                                        // ->'+sguid+'\n
+                                        // category
+                                        // matched
+                                        // -->'+temp+'\n
+                                        // Panel
+                                        // Discussions
+                                        // -->');
+                                    } else if (sFormat == "Technology Conferences") {
+                                        item.techConf.push(sguid);
+                                    } else if (sFormat == "Technology Sessions") {
+                                        item.technologySessions.push(sguid);
+                                    } else {
+                                        item.interviews.push(sguid); // alert('interviews
+                                        // id
+                                        // ->'+sguid+'\n
+                                        // category
+                                        // matched
+                                        // -->'+temp+'\n
+                                        // interviews
+                                        // -->');
+                                    }
+
+                                }
+                            }
+
+
+                        });
+                    });
+
+
+
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    if (beg == -1) {
+                        len = 0;
+                    }
+
+                    if (end == 0) {
+                        len = 0;
+                    }
+
+                    temp = str.substring(beg + 1, str.length);
+                    str = temp;
+                    //alert(' CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>   :'+temp);
+                } // while
+
+
+            } else {
+                // console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
+            }
+
+
+
+
+        } catch (error) {
+            var txt = " getAudioVideoItem - There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
+    });
+
+
+
+    loadEventsRss();
+    loadPlaylistsData();
+
+
 }
 
 // ------------------------------------------------------- LOAD Events RSS FROM
@@ -712,439 +645,407 @@ function getAudioVideoItem(xml) {
 
 function loadEventsRss() {
 
-	$
-			.ajax({
-				type : "GET",
-				url : eventsRss,
-				dataType : "xml",
-				success : getEventItem,
-				error : function(xhr, textStatus, errorThrown) {
-					console
-							.log('*******************************************************');
-					console.log('In loadEventsRss Failure' + JSON.stringify(xhr));
-					console.log('Event error \n' + textStatus);
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************');
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: eventsRss,
+        dataType: "xml",
+        success: getEventItem,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('*******************************************************');
+            console.log('In loadEventsRss Failure' + JSON.stringify(xhr));
+            console.log('Event error \n' + textStatus);
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+    });
 }
 
 function getEventItem(xml) {
-	var monthArr = [ "January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December" ];
+    var monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-	$(xml).find('item').each(function() {
+    $(xml).find('item').each(function () {
 
-		try {
+        try {
 
-			var thumbLength, actualLength;
+            var thumbLength, actualLength;
 
-			var scategory = $(this).find('category').text();
-			var sicsfile = $(this).find('icsfile').text();
+            var scategory = $(this).find('category').text();
+            var sicsfile = $(this).find('icsfile').text();
 
-			var sguid = $(this).find('contentid').text();
-			var sTitle = $(this).find('title').text();
-			sTitle = sTitle.replace(/'/g,'');
+            var sguid = $(this).find('contentid').text();
+            var sTitle = $(this).find('title').text();
+            sTitle = sTitle.replace(/'/g, '');
 
-			var sFormat = $(this).find('content_type').text(); // events
-			//createTAJson(sFormat);
-			formatTypeArr.push(sFormat);			
-			formatTypeArr = $.unique(formatTypeArr);			
-			//console.log(formatTypeArr);
-			
-			var etime = $(this).find('etime').text();
-			// alert('etime :'+etime);
+            var sFormat = $(this).find('content_type').text(); // events
+            //createTAJson(sFormat);
+            formatTypeArr.push(sFormat);
+            formatTypeArr = $.unique(formatTypeArr);
+            //console.log(formatTypeArr);
+            var etime = $(this).find('etime').text();
+            // alert('etime :'+etime);
+            var sauthor_count = $(this).find('author_count').text();
+            var sauthor = $(this).find('author').text().replace(/\|/g, ',');
+            var sdescription = $(this).find('description').text();
 
-			var sauthor_count = $(this).find('author_count').text();
-			var sauthor = $(this).find('author').text().replace(/\|/g, ',');
-			var sdescription = $(this).find('description').text();
+            var sdate = $(this).find('event_sdate').text();
+            var sstart_date = $(this).find('start_date').text();
+            var send_date = $(this).find('end_date').text();
 
-			var sdate = $(this).find('event_sdate').text();
-			var sstart_date = $(this).find('start_date').text();
-			var send_date = $(this).find('end_date').text();
+            var sThumb = $(this).find('thumb').text();
+            var sActual = $(this).find('actual').text();
 
-			var sThumb = $(this).find('thumb').text();
-			var sActual = $(this).find('actual').text();
+            //console.log('sThumb----'+sThumb);
+            // var dateString = sstart_date;Â 
+            // dateString = dateString.substr(0,10);
+            //                         
+            // var monthName = parseInt(dateString.substr(5,2)-1);
+            // dateString = monthArr[monthName] +" "+ dateString.substr(8,2) +",
+            // " + dateString.substr(0,4);
+            $(this).find('thumb').each(function () {
+                thumbLength = $(this).attr('length');
+            });
 
-			//console.log('sThumb----'+sThumb);
-			// var dateString = sstart_date; 
-			// dateString = dateString.substr(0,10);
-			//                         
-			// var monthName = parseInt(dateString.substr(5,2)-1);
-			// dateString = monthArr[monthName] +" "+ dateString.substr(8,2) +",
-			// " + dateString.substr(0,4);
+            $(this).find('actual').each(function () {
+                actualLength = $(this).attr('length');
+            });
 
-			$(this).find('thumb').each(function() {
-				thumbLength = $(this).attr('length');
-			});
+            // if ($.inArray(eventItemId, sguid) == -1) {
+            // eventItemId.push(sguid);
+            // }
+            var authorArray = new Array();
+            var authorTextArray = sauthor.split(",");
 
-			$(this).find('actual').each(function() {
-				actualLength = $(this).attr('length');
-			});
+            for (i = 0; i < authorTextArray.length; i++) {
+                authorArray.push(authorTextArray[i]);
+            }
 
-			// if ($.inArray(eventItemId, sguid) == -1) {
-			// eventItemId.push(sguid);
-			// }
+            if (jQuery.inArray(sguid, eventItemId) == -1) {
 
-			var authorArray = new Array();
-			var authorTextArray = sauthor.split(",");
+                eventItemId.push(sguid); // console.log('inserted :'+sguid);
+                var tempMedia = new Object();
 
-			for (i = 0; i < authorTextArray.length; i++) {
-				authorArray.push(authorTextArray[i]);
-			}
+                tempMedia.itemId = sguid;
+                tempMedia.title = sTitle;
+                tempMedia.type = sFormat;
+                tempMedia.etime = etime;
 
-			if (jQuery.inArray(sguid, eventItemId) == -1) {
+                tempMedia.icsfile = sicsfile;
+                tempMedia.category = scategory;
 
-				eventItemId.push(sguid); // console.log('inserted :'+sguid);
+                tempMedia.publishedDate = sdate;
+                tempMedia.startDate = sstart_date;
+                tempMedia.endDate = send_date;
 
-				var tempMedia = new Object();
+                tempMedia.author = authorArray;
+                tempMedia.authorCount = sauthor_count;
+                tempMedia.description = sdescription;
 
-				tempMedia.itemId = sguid;
-				tempMedia.title = sTitle;
-				tempMedia.type = sFormat;
-				tempMedia.etime = etime;
+                tempMedia.thumb = sThumb;
+                tempMedia.thumbLength = thumbLength;
 
-				tempMedia.icsfile = sicsfile;
-				tempMedia.category = scategory;
+                tempMedia.actual = sActual;
+                tempMedia.actualLength = actualLength;
 
-				tempMedia.publishedDate = sdate;
-				tempMedia.startDate = sstart_date;
-				tempMedia.endDate = send_date;
+                tempMedia.thumbLoc = "";
+                tempMedia.actualLoc = "";
 
-				tempMedia.author = authorArray;
-				tempMedia.authorCount = sauthor_count;
-				tempMedia.description = sdescription;
+                jsonData.events.push(tempMedia);
 
-				tempMedia.thumb = sThumb;
-				tempMedia.thumbLength = thumbLength;
+                var str = JSON.stringify(scategory);
 
-				tempMedia.actual = sActual;
-				tempMedia.actualLength = actualLength;
+                str = str.substring(1, str.length - 1);
+                //	console.log('EVNTS str	---'+str);
 
-				tempMedia.thumbLoc = "";
-				tempMedia.actualLoc = "";
+                var beg, end, temp;
+                var len = str.length;
 
-				jsonData.events.push(tempMedia);
+                beg = 0;
 
-				var str = JSON.stringify(scategory);
-
-				str = str.substring(1, str.length-1);
-			//	console.log('EVNTS str	---'+str);
+                while (len !== 0 && end != 0 && str != "") {
+                    var n = str.split("|");
 
 
-				var beg, end, temp;
-				var len = str.length;
+                    end = str.indexOf("-") + 1;
+                    beg = str.indexOf("|");
+                    len = str.length;
 
-				beg = 0;
 
-				while (len !== 0 && end != 0 && str != "") {
-					var n=str.split("|");  
-					
-					
-					end = str.indexOf("-") + 1;
-					beg = str.indexOf("|");
-					len = str.length;
-					
-				
-					
-					temp = str.substring(0, end - 1);
 
-						//console.log('EVNTS temp---'+temp);
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
+                    temp = str.substring(0, end - 1);
 
-					$.each(jsonData.category, function(index, item) {
+                    //console.log('EVNTS temp---'+temp);
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    $.each(jsonData.category, function (index, item) {
 
-						$.each(item.subCategory, function(index, item) {
-							 for(var i = 0; i < n.length;i++)
-							 	{
+                        $.each(item.subCategory, function (index, item) {
+                            for (var i = 0; i < n.length; i++) {
 
-								 	var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
-								 
-								 var tempSubId = n[i].substring(n[i].indexOf("-")+1,n[i].length);
+                                var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
 
-						//	if (item.subCategoryName == temp) {
+                                var tempSubId = n[i].substring(n[i].indexOf("-") + 1, n[i].length);
 
-									if (tempSubId == item.categoryid && item.subCategoryName == temp) {
+                                //	if (item.subCategoryName == temp) {
+                                if (tempSubId == item.categoryid && item.subCategoryName == temp) {
 
-								item.event.push(sguid); // alert('id
-														// ->'+sguid+'\n
-														// category matched
-														// -->'+temp+'\n data
-														// -->'+JSON.stringify(tempMedia));
-							}
-							 	}
-						});
-					});
+                                    item.event.push(sguid); // alert('id
+                                    // ->'+sguid+'\n
+                                    // category matched
+                                    // -->'+temp+'\n data
+                                    // -->'+JSON.stringify(tempMedia));
+                                }
+                            }
+                        });
+                    });
 
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    if (beg == -1) {
+                        len = 0;
+                    }
 
-					if (beg == -1) {
-						len = 0;
-					}
+                    if (end == 0) {
+                        len = 0;
+                    }
 
-					if (end == 0) {
-						len = 0;
-					}
+                    temp = str.substring(beg + 1, str.length);
+                    str = temp;
 
-					temp = str.substring(beg + 1, str.length);
-					str = temp;
-					
-					//console.log('temp=='+temp);
-				}// while
+                    //console.log('temp=='+temp);
+                } // while
+            } else {
+                // console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
+            }
 
-			} else {
-				// console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
-			}
 
-			
-			//console.log('EVENTS : '+JSON.stringify(formatTypeArr));
-		} catch (error) {
-			var txt = "loadEventsRss - There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
-		}
-	});
+            //console.log('EVENTS : '+JSON.stringify(formatTypeArr));
+        } catch (error) {
+            var txt = "loadEventsRss - There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
+    });
 
-	//getFileSystemRefForWriting(jsonData);
-
-	loadDocumentRss();
-	//loadPlaylistsData();
-	// console.log('eventItemId-->\n\n'+eventItemId)
-	// alert('jsonData.events -->'+jsonData.events.length);
-	// alert('jsonData.Data -->'+JSON.stringify(jsonData.events));
-	// alert('Events Complete .');
-	// alert('eventItemId -->>>'+eventItemId);
-	// alert('eventd length-->>>'+jsonData.event.length);
-	// alert('Documents Data ----->'+JSON.stringify(jsonData.documents));
-	// console.log('Documents Data ----->'+JSON.stringify(jsonData.category));
-	// alert('Vikram Audio Elements: '+JSON.stringify(jsonData.audio));
-	// alert('Vikram Video Elements: '+JSON.stringify(jsonData.video));
-
+    //getFileSystemRefForWriting(jsonData);
+    loadDocumentRss();
+    //loadPlaylistsData();
+    // console.log('eventItemId-->\n\n'+eventItemId)
+    // alert('jsonData.events -->'+jsonData.events.length);
+    // alert('jsonData.Data -->'+JSON.stringify(jsonData.events));
+    // alert('Events Complete .');
+    // alert('eventItemId -->>>'+eventItemId);
+    // alert('eventd length-->>>'+jsonData.event.length);
+    // alert('Documents Data ----->'+JSON.stringify(jsonData.documents));
+    // console.log('Documents Data ----->'+JSON.stringify(jsonData.category));
+    // alert('Vikram Audio Elements: '+JSON.stringify(jsonData.audio));
+    // alert('Vikram Video Elements: '+JSON.stringify(jsonData.video));
 }
 
 // --------------------------------------------- LOAD Document RSS FROM RSS URL
 // -------------------------------------------------
 
 function loadDocumentRss() {
-	$
-			.ajax({
-				type : "GET",
-				url : documentRss,
-				dataType : "xml",
-				success : getDocumentItem,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('*******************************************************')
-					console.log('In loadDocumentRss Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************')
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: documentRss,
+        dataType: "xml",
+        success: getDocumentItem,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('*******************************************************')
+            console.log('In loadDocumentRss Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************')
+        }
+    });
 }
 
 function getDocumentItem(xml) {
 
-	$(xml).find('item').each(function() {
+    $(xml).find('item').each(function () {
 
-		try {
+        try {
 
-			var thumbLength, actualLength, spdfLength;
+            var thumbLength, actualLength, spdfLength;
 
-			var scategory = $(this).find('category').text();
+            var scategory = $(this).find('category').text();
 
-			var sguid = $(this).find('contentid').text();
-			var sTitle = $(this).find('title').text();
-			sTitle = sTitle.replace(/'/g,'');
-
-			
-			var sdescription = $(this).find('description').text();
-
-			var sFormat = $(this).find('content_type').text(); // documents
-			formatTypeArr.push(sFormat);			
-			formatTypeArr = $.unique(formatTypeArr);	
-			var lang  = $(this).find('Content_lang').text();
-
-			//console.log(formatTypeArr);
-			
-			var sauthor = $(this).find('author').text().replace(/\|/g, ',');
-
-			var sstart_date = $(this).find('document_date').text();
-
-			var sThumb = $(this).find('thumb').text();
-			var sActual = $(this).find('actual').text();
-
-			var spdf = $(this).find('document_pdf').text();
-
-			$(this).find('thumb').each(function() {
-				spdfLength = $(this).attr('length');
-			});
-
-			$(this).find('thumb').each(function() {
-				thumbLength = $(this).attr('length');
-			});
-
-			$(this).find('actual').each(function() {
-				actualLength = $(this).attr('length');
-			});
-
-			// if ($.inArray(documentItemId, sguid) == -1) {
-			// documentItemId.push(sguid);
-			// //alert('New event inserted-->'+sguid);
-			// }
-
-			if (jQuery.inArray(sguid, documentItemId) == -1) {
-
-				documentItemId.push(sguid); // console.log('inserted :'+sguid);
-
-				var authorArray = new Array();
-				var authorTextArray = sauthor.split(",");
-
-				for (i = 0; i < authorTextArray.length; i++) {
-					// alert("FULL CATEG "+authorTextArray[i]);
-					authorArray.push(authorTextArray[i]);
-				}
-
-				var tempMedia = new Object();
-
-				tempMedia.itemId = sguid;
-				tempMedia.title = sTitle;
-				tempMedia.description = sdescription;
-
-				tempMedia.publishedDate = sstart_date;
-
-				tempMedia.type = sFormat;
-				tempMedia.author = authorArray;
-				tempMedia.category = scategory;
-
-				tempMedia.thumb = sThumb;
-				tempMedia.thumbLength = thumbLength;
-
-				tempMedia.actual = sActual;
-				tempMedia.actualLength = actualLength;
-
-				tempMedia.thumbLoc = "";
-				tempMedia.actualLoc = "";
-
-				tempMedia.pdf = spdf;
-				tempMedia.spdfLength = spdfLength;
-
-				tempMedia.isDownloaded = 'false';
-				tempMedia.localPath = '';
-				tempMedia.downloadedDateD = '';
-				
-				tempMedia.selLanguage = lang;
+            var sguid = $(this).find('contentid').text();
+            var sTitle = $(this).find('title').text();
+            sTitle = sTitle.replace(/'/g, '');
 
 
-				jsonData.documents.push(tempMedia);
-		//	console.log("testObj====================================================="+JSON.stringify(jsonData.audio));
+            var sdescription = $(this).find('description').text();
 
-				var str = JSON.stringify(scategory);
+            var sFormat = $(this).find('content_type').text(); // documents
+            formatTypeArr.push(sFormat);
+            formatTypeArr = $.unique(formatTypeArr);
+            var lang = $(this).find('Content_lang').text();
 
-				str = str.substring(1, str.length-1);
+            //console.log(formatTypeArr);
+            var sauthor = $(this).find('author').text().replace(/\|/g, ',');
 
-				var beg, end, temp;
-				var len = str.length;
+            var sstart_date = $(this).find('document_date').text();
 
-				beg = 0;
+            var sThumb = $(this).find('thumb').text();
+            var sActual = $(this).find('actual').text();
 
-				while (len !== 0 && end != 0 && str != "") {
-					var n=str.split("|");  
-					
-					
-					end = str.indexOf("-") + 1;
-					beg = str.indexOf("|");
-					len = str.length;
+            var spdf = $(this).find('document_pdf').text();
 
-					temp = str.substring(0, end - 1);
+            $(this).find('thumb').each(function () {
+                spdfLength = $(this).attr('length');
+            });
 
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
+            $(this).find('thumb').each(function () {
+                thumbLength = $(this).attr('length');
+            });
 
-					$.each(jsonData.category, function(index, item) {
+            $(this).find('actual').each(function () {
+                actualLength = $(this).attr('length');
+            });
 
-						$.each(item.subCategory, function(index, item) {
-							
-							 for(var i = 0; i < n.length;i++)
-							 	{
+            // if ($.inArray(documentItemId, sguid) == -1) {
+            // documentItemId.push(sguid);
+            // //alert('New event inserted-->'+sguid);
+            // }
+            if (jQuery.inArray(sguid, documentItemId) == -1) {
 
-								 var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
-								 
-								 var tempSubId = n[i].substring(n[i].indexOf("-")+1,n[i].length);
+                documentItemId.push(sguid); // console.log('inserted :'+sguid);
+                var authorArray = new Array();
+                var authorTextArray = sauthor.split(",");
 
-							//if (item.subCategoryName == temp) {
-							if (tempSubId == item.categoryid && item.subCategoryName == temp) {
+                for (i = 0; i < authorTextArray.length; i++) {
+                    // alert("FULL CATEG "+authorTextArray[i]);
+                    authorArray.push(authorTextArray[i]);
+                }
 
-								item.document.push(sguid); // alert('id
-															// ->'+sguid+'\n
-															// category matched
-															// -->'+temp+'\n
-															// data
-															// -->'+JSON.stringify(tempMedia));
-								}
-							 }
-						});
-					});
-					// ---------------------------------------------FOR EACH
-					// CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
-					// ---------------------------------------------
+                var tempMedia = new Object();
 
-					if (beg == -1) {
-						len = 0;
-					}
-					if (end == 0) {
-						len = 0;
-					}
+                tempMedia.itemId = sguid;
+                tempMedia.title = sTitle;
+                tempMedia.description = sdescription;
 
-					temp = str.substring(beg + 1, str.length);
-					str = temp;
+                tempMedia.publishedDate = sstart_date;
 
-				}// while
+                tempMedia.type = sFormat;
+                tempMedia.author = authorArray;
+                tempMedia.category = scategory;
 
-			} else {
-				// console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
-			}
-			
-			
-		//	console.log('DOCUMENTS : '+JSON.stringify(formatTypeArr));
+                tempMedia.thumb = sThumb;
+                tempMedia.thumbLength = thumbLength;
 
-		} catch (error) {
-			var txt = "getDocumentItem-There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
-		}
-	});
+                tempMedia.actual = sActual;
+                tempMedia.actualLength = actualLength;
 
-	loadContributorRss(); 
-	isDataLoaded = true;
-                            if(isAppUpgradeAvailable == false)
-                             {
-                                $.mobile.changePage("#businessCategory");
-                             } else if(isAppUpgradeAvailable == true && setCancelAction == true)
-                             {
-                                $.mobile.changePage("#businessCategory");
-                             }
-	//$.mobile.changePage("#businessCategory");
-	//syncLoaderStart();
-	//startSync();
-	$("#imgRefreshProgress").hide();
+                tempMedia.thumbLoc = "";
+                tempMedia.actualLoc = "";
+
+                tempMedia.pdf = spdf;
+                tempMedia.spdfLength = spdfLength;
+
+                tempMedia.isDownloaded = 'false';
+                tempMedia.localPath = '';
+                tempMedia.downloadedDateD = '';
+
+                tempMedia.selLanguage = lang;
+
+
+                jsonData.documents.push(tempMedia);
+                //	console.log("testObj====================================================="+JSON.stringify(jsonData.audio));
+                var str = JSON.stringify(scategory);
+
+                str = str.substring(1, str.length - 1);
+
+                var beg, end, temp;
+                var len = str.length;
+
+                beg = 0;
+
+                while (len !== 0 && end != 0 && str != "") {
+                    var n = str.split("|");
+
+
+                    end = str.indexOf("-") + 1;
+                    beg = str.indexOf("|");
+                    len = str.length;
+
+                    temp = str.substring(0, end - 1);
+
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    $.each(jsonData.category, function (index, item) {
+
+                        $.each(item.subCategory, function (index, item) {
+
+                            for (var i = 0; i < n.length; i++) {
+
+                                var tempSubName = n[i].substring(0, n[i].lastIndexOf("-"));
+
+                                var tempSubId = n[i].substring(n[i].indexOf("-") + 1, n[i].length);
+
+                                //if (item.subCategoryName == temp) {
+                                if (tempSubId == item.categoryid && item.subCategoryName == temp) {
+
+                                    item.document.push(sguid); // alert('id
+                                    // ->'+sguid+'\n
+                                    // category matched
+                                    // -->'+temp+'\n
+                                    // data
+                                    // -->'+JSON.stringify(tempMedia));
+                                }
+                            }
+                        });
+                    });
+                    // ---------------------------------------------FOR EACH
+                    // CATEGORY IN THE CATEGORY LIST OF INSIDE <ITEM> <CATEGORY>
+                    // ---------------------------------------------
+                    if (beg == -1) {
+                        len = 0;
+                    }
+                    if (end == 0) {
+                        len = 0;
+                    }
+
+                    temp = str.substring(beg + 1, str.length);
+                    str = temp;
+
+                } // while
+            } else {
+                // console.log('Duplicate item inserted :'+sguid+' : '+sFormat);
+            }
+
+
+            //	console.log('DOCUMENTS : '+JSON.stringify(formatTypeArr));
+        } catch (error) {
+            var txt = "getDocumentItem-There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
+    });
+
+    loadContributorRss();
+    isDataLoaded = true;
+    if (isAppUpgradeAvailable == false) {
+        $.mobile.changePage("#businessCategory");
+    } else if (isAppUpgradeAvailable == true && setCancelAction == true) {
+        $.mobile.changePage("#businessCategory");
+    }
 	
-	//if (isOnline) {
-	//	alert('get doc'+JSON.stringify(jsonData));
-	//	getFileSystemRefForWriting(jsonData);
+    //$.mobile.changePage("#businessCategory");
+    //syncLoaderStart();
+    //startSync();
+    $("#imgRefreshProgress").hide();
 
-		//getFileSystemRefForReading(false, jsonData);
-	//}
-
+    //if (isOnline) {
+    //	alert('get doc'+JSON.stringify(jsonData));
+    //	getFileSystemRefForWriting(jsonData);
+    //getFileSystemRefForReading(false, jsonData);
+    //}
 }
 
 // --------------------------------------------- LOAD Contributor RSS FROM RSS
@@ -1152,116 +1053,109 @@ function getDocumentItem(xml) {
 
 function loadContributorRss() {
 
-	$
-			.ajax({
-				type : "GET",
-				url : contributorRss,
-				dataType : "xml",
-				success : loadContributorData,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('*******************************************************');
-					console.log('In loadContributorRss Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************');
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: contributorRss,
+        dataType: "xml",
+        success: loadContributorData,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('*******************************************************');
+            console.log('In loadContributorRss Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+    });
 
-	loadSpotlightUrl();
-	loadTechWatchUrl();
-	loadFaqRss();
-	
+    loadSpotlightUrl();
+    loadTechWatchUrl();
+    loadFaqRss();
+
 }
 
 function loadContributorData(xml) {
-	$(xml).find('item').each(function() {
+    $(xml).find('item').each(function () {
 
-		try {
-			var sTitle = $(this).find('title').text();
-			var sguid = $(this).find('guid').text();
+        try {
+            var sTitle = $(this).find('title').text();
+            var sguid = $(this).find('guid').text();
 
-			var scategory = $(this).find('category').text();
-			var sdescription = $(this).find('description').text();
+            var scategory = $(this).find('category').text();
+            var sdescription = $(this).find('description').text();
 
-			var sContributor = $(this).find('contributor').text();
+            var sContributor = $(this).find('contributor').text();
 
-			var sThumb = $(this).find('thumb').text();
-			var sActual = $(this).find('actual').text();
+            var sThumb = $(this).find('thumb').text();
+            var sActual = $(this).find('actual').text();
 
-			var sDate = $(this).find('date').text();
-			var n = sDate.lastIndexOf("-");
-			sDate = sDate.substring(0, n - 1);
-			
-			var sEmail = $(this).find('email').text();
+            var sDate = $(this).find('date').text();
+            var n = sDate.lastIndexOf("-");
+            sDate = sDate.substring(0, n - 1);
 
-
-			var itemContributor = new Object();
-			itemContributor.itemId = sguid;
-			itemContributor.title = sTitle;
-			itemContributor.category = scategory;
-			itemContributor.description = sdescription;
-			itemContributor.contributor = sContributor;
-			itemContributor.date = sDate;
-			itemContributor.type = "contributor";
-			itemContributor.email = sEmail;
+            var sEmail = $(this).find('email').text();
 
 
-			itemContributor.thumb = sThumb;
-			itemContributor.actual = sActual;
-			
-		
+            var itemContributor = new Object();
+            itemContributor.itemId = sguid;
+            itemContributor.title = sTitle;
+            itemContributor.category = scategory;
+            itemContributor.description = sdescription;
+            itemContributor.contributor = sContributor;
+            itemContributor.date = sDate;
+            itemContributor.type = "contributor";
+            itemContributor.email = sEmail;
 
-			itemContributor.thumbLoc = "";
-			itemContributor.actualLoc = "";
 
-			jsonData.contributor.push(itemContributor);
-		} catch (error) {
-			var txt = "loadContributorData-There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
+            itemContributor.thumb = sThumb;
+            itemContributor.actual = sActual;
 
-		}
-	});
-	
-	//alert("loadContributorData function ");
-	//if(jsonData)
-//		{
-//			$.mobile.changePage("#businessCategory");
-//			$("#imgRefreshProgress").hide();
-//		}
-//
-//	if (isOnline) {
-		getFileSystemRefForWriting(jsonData);
 
-		//getFileSystemRefForReading(false, jsonData);
-	//}
-		
-		//startSync();
+
+            itemContributor.thumbLoc = "";
+            itemContributor.actualLoc = "";
+
+            jsonData.contributor.push(itemContributor);
+        } catch (error) {
+            var txt = "loadContributorData-There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+
+        }
+    });
+
+    //alert("loadContributorData function ");
+    //if(jsonData)
+    //		{
+    //			$.mobile.changePage("#businessCategory");
+    //			$("#imgRefreshProgress").hide();
+    //		}
+    //
+    //	if (isOnline) {
+    getFileSystemRefForWriting(jsonData);
+
+    //getFileSystemRefForReading(false, jsonData);
+    //}
+    //startSync();
 }
 
 // --------------------------------------------- LOAD SPOTLIGHT RSS FROM RSS URL
 // ------------------------------------------------------------------------------------------
 
 function loadSpotlightUrl() {
-	$
-			.ajax({
-				type : "GET",
-				url : spotlightRss,
-				dataType : "xml",
-				success: loadSpotlightGeneral,
-				error : function(xhr, textStatus, errorThrown) {
-					console
-							.log('********************** SPOTLIGHT *********************************');
-					console.log('In loadSpotlightUrl Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************');
-				}
-				
-			});
+    $.ajax({
+        type: "GET",
+        url: spotlightRss,
+        dataType: "xml",
+        success: loadSpotlightGeneral,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('********************** SPOTLIGHT *********************************');
+            console.log('In loadSpotlightUrl Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+
+    });
 }
 
 
@@ -1277,25 +1171,25 @@ function loadSpotlightGeneral(xml) {
             var sTitle = $(this).find('title').text();
             var sDesc = $(this).find('description').text();
             var sLang = $(this).find('formatlang').text();
-            
+
             var sAuthor = $(this).find('author').text().replace(/\|/g, ',');
-            var contId = $(this).find('contributor_id').text();       
-            
+            var contId = $(this).find('contributor_id').text();
+
             var sAuthorCount = $(this).find('author_count').text();
             var audioTag = $(this).find('audio').text();
             var videoTag = $(this).find('video').text();
 
             var transcriptTag = $(this).find('transcript').text();
             var presentationTag = $(this).find('presentation').text();
-            
+
             var sqna = $(this).find('qna').text();
             //var sqna = 'Chetan';
-			var etime = $(this).find('etime').text();
+            var etime = $(this).find('etime').text();
 
             var sdocumentPDF = $(this).find('document_pdf').text();
             var publishedDateStart = $(this).find('published_date_start').text();
             var plen = publishedDateStart.length;
-//            publishedDateStart = publishedDateStart.substring(0, plen-8 );
+            //            publishedDateStart = publishedDateStart.substring(0, plen-8 );
             var publishedDateEnd = $(this).find('published_date_end').text();
             var contributorId = $(this).find('contributor_id').text();
             var techArea = $(this).find('tech_area').text();
@@ -1330,12 +1224,11 @@ function loadSpotlightGeneral(xml) {
             }
 
             //alert(imageActual);
-
             var tempMediaSpot = new Object();
 
             tempMediaSpot.itemId = sguid;
             tempMediaSpot.type = scontenttype;
-            
+
             tempMediaSpot.formattype = sformattype;
             tempMediaSpot.category = scategory;
             tempMediaSpot.title = sTitle;
@@ -1348,11 +1241,11 @@ function loadSpotlightGeneral(xml) {
             tempMediaSpot.transcript = transcriptTag;
             tempMediaSpot.presentation = presentationTag;
             tempMediaSpot.qna = sqna;
-            tempMediaSpot.document = sdocumentPDF;                  
+            tempMediaSpot.document = sdocumentPDF;
             tempMediaSpot.publishedDateStart = publishedDateStart;
 
             tempMediaSpot.contId = contId;
-            
+
             tempMediaSpot.publishedDateEnd = publishedDateEnd;
             tempMediaSpot.contributorId = contributorId;
             tempMediaSpot.techArea = techArea;
@@ -1394,7 +1287,7 @@ function loadSpotlightGeneral(xml) {
             tempMediaSpot.downloadedDateD = '';
 
             jsonData.spotLight.push(tempMediaSpot);
-       //     jsonData.spotLightDownloaded.push(tempMediaSpot);
+            //     jsonData.spotLightDownloaded.push(tempMediaSpot);
             var str = JSON.stringify(scategory);
 
             str = str.substring(1, str.length - 1);
@@ -1428,7 +1321,7 @@ function loadSpotlightGeneral(xml) {
                             //if (item.subCategoryName == temp) {
                             if (tempSubId == item.categoryid && item.subCategoryName == temp) {
 
-                             //  console.log(tempSubName+" & "+tempSubId );
+                                //  console.log(tempSubName+" & "+tempSubId );
                                 item.spotlight.push(sguid); // alert('id
                                 // ->'+sguid+'\n
                                 // data
@@ -1449,8 +1342,7 @@ function loadSpotlightGeneral(xml) {
                 temp = str.substring(beg + 1, str.length);
                 str = temp;
 
-            }// while
-
+            } // while
         } catch (error) {
             var txt = "There was an error on this page.\n\n";
             txt += "Error description: " + error.message + "\n\n";
@@ -1460,64 +1352,62 @@ function loadSpotlightGeneral(xml) {
     });
 
     if (isOnline) {
-          getFileSystemRefForReading(false, jsonData);
+        getFileSystemRefForReading(false, jsonData);
     }
 
     postDownloadedItem();
-	//startSync();
-
+    //startSync();
 }
 
 // --------------------------------------------- LOAD FAQ RSS FROM RSS URL
 // ------------------------------------------------------------------------------------------
 
 function loadFaqRss() {
-	$
-			.ajax({
-				type : "GET",
-				url : faqRss,
-				dataType : "xml",
-				success : loadFaq,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('******************* FAQ ************************************');
-					console.log('In loadFaqRss Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************');
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: faqRss,
+        dataType: "xml",
+        success: loadFaq,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('******************* FAQ ************************************');
+            console.log('In loadFaqRss Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+    });
 }
 
 function loadFaq(xml) {
-	$(xml).find('item').each(function() {
+    $(xml).find('item').each(function () {
 
-		try {
-			var sTitle = $(this).find('title').text();
-			var qOrder = $(this).find('question_order').text();
-			var sdescription = $(this).find('description').text();
+        try {
+            var sTitle = $(this).find('title').text();
+            var qOrder = $(this).find('question_order').text();
+            var sdescription = $(this).find('description').text();
 
-			var sImage1 = $(this).find('image1').text();
-			var sImage2 = $(this).find('image2').text();
+            var sImage1 = $(this).find('image1').text();
+            var sImage2 = $(this).find('image2').text();
 
-			var faqItem = new Object();
-			faqItem.title = sTitle;
-			faqItem.qOrder = qOrder;
-			faqItem.sImage1 = sImage1;
-			faqItem.sImage2 = sImage2;
-			faqItem.description = sdescription;
+            var faqItem = new Object();
+            faqItem.title = sTitle;
+            faqItem.qOrder = qOrder;
+            faqItem.sImage1 = sImage1;
+            faqItem.sImage2 = sImage2;
+            faqItem.description = sdescription;
 
-			jsonData.faq.push(faqItem);
+            jsonData.faq.push(faqItem);
 
-		} catch (error) {
-			var txt = "loadSpotlight-There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
-		}
+        } catch (error) {
+            var txt = "loadSpotlight-There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
 
-	});
+    });
+
+downloadThumbImagesOnLogin();
 
 }
 
@@ -1525,73 +1415,69 @@ function loadFaq(xml) {
 // ------------------------------------------------------------------------------------------
 
 function loadAboutTechTimeRss() {
-	$
-			.ajax({
-				type : "GET",
-				url : aboutTechTimeRss,
-				dataType : "xml",
-				success : loadAboutTechTime,
-				error : function(xhr, textStatus, errorThrown) {
-					// alert('error');
-					console
-							.log('******************* ABOUT TECHTIME ************************************');
-					console.log('In loadAboutTechTimeRss Failure' + JSON.stringify(xhr));
-					console.log("textStatus:" + textStatus + ':' + errorThrown);
-					console
-							.log('*******************************************************');
-				}
-			});
+    $.ajax({
+        type: "GET",
+        url: aboutTechTimeRss,
+        dataType: "xml",
+        success: loadAboutTechTime,
+        error: function (xhr, textStatus, errorThrown) {
+            // alert('error');
+            console.log('******************* ABOUT TECHTIME ************************************');
+            console.log('In loadAboutTechTimeRss Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+    });
 }
 
 function loadAboutTechTime(xml) {
-newAppVersion = $(xml).find('androidAppVersion').text();
-                             var customUpdateMessage = $(xml).find('updateMessage').text();
-                             $('#customUpdateMessage').html(customUpdateMessage);
-                             
-                             checkForApplicationUpgradeAvailability();
+    newAppVersion = $(xml).find('androidAppVersion').text();
+    var customUpdateMessage = $(xml).find('updateMessage').text();
+    $('#customUpdateMessage').html(customUpdateMessage);
 
-	$(xml).find('item').each(function() {
+    checkForApplicationUpgradeAvailability();
 
-		try {
-			var sTitle = $(this).find('title').text();
-			var sImage = $(this).find('image').text();
-			var sdescription = $(this).find('description').text();
+    $(xml).find('item').each(function () {
 
-			var aboutTechTimeItem = new Object();
-			aboutTechTimeItem.title = sTitle;
-			aboutTechTimeItem.description = sdescription;
-			aboutTechTimeItem.image = sImage;
+        try {
+            var sTitle = $(this).find('title').text();
+            var sImage = $(this).find('image').text();
+            var sdescription = $(this).find('description').text();
 
-			jsonData.aboutTechTime.push(aboutTechTimeItem);
+            var aboutTechTimeItem = new Object();
+            aboutTechTimeItem.title = sTitle;
+            aboutTechTimeItem.description = sdescription;
+            aboutTechTimeItem.image = sImage;
 
-		} catch (error) {
-			var txt = "loadAboutTechTime-There was an error on this page.\n\n";
-			txt += "Error description: " + error.message + "\n\n";
-			txt += "Click OK to continue.\n\n";
-			console.log(txt);
-		}
+            jsonData.aboutTechTime.push(aboutTechTimeItem);
 
-	});
+        } catch (error) {
+            var txt = "loadAboutTechTime-There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
+
+    });
 }
 
 
-function loadTechWatchUrl()
-{
-            //alert(techWatchRss);
-            $.ajax({
-            type : "GET",
-            url : techWatchRss,
-            dataType : "xml",
-            success : loadTechWatchData,
-            error : function(xhr, textStatus, errorThrown) {
-                           console.log('********************** Tech Watch *********************************');
-                           	console.log('In Failure'+JSON.stringify(xhr));
-                           console.log("textStatus:"+textStatus + ':' + errorThrown);
-                           console.log('*******************************************************');
-            }
-            });
+function loadTechWatchUrl() {
+    //alert(techWatchRss);
+    $.ajax({
+        type: "GET",
+        url: techWatchRss,
+        dataType: "xml",
+        success: loadTechWatchData,
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('********************** Tech Watch *********************************');
+            console.log('In Failure' + JSON.stringify(xhr));
+            console.log("textStatus:" + textStatus + ':' + errorThrown);
+            console.log('*******************************************************');
+        }
+    });
 }
-     
+
 
 
 
@@ -1600,149 +1486,147 @@ var currentTechWatchItemIndex = '';
 var techWatchTraverseIndex = '';
 
 function loadTechWatchData(techWatchXml) {
-	
-
-	$(techWatchXml).find('techwatch').each(
-			function(index,element) {
-					try{
-				var techWatchContentObject = new Object();
-				var type = $(this).attr('type');
-				var twId = $(this).attr('id');			
-				 
-
-				if(type == 'current')
-					{
-					 	currentTechWatchItemId = twId;
-				        currentTechWatchItemIndex = index;
-				        
-				        window.localStorage.setItem("currentTechWatchItemId", currentTechWatchItemId);
-				        window.localStorage.setItem("currentTechWatchItemIndex", currentTechWatchItemIndex);
-						
-					}
-				
-
-				techWatchContentObject.type = type;
-				techWatchContentObject.twId = twId;
-
-				var itemList = new Array();
-				
-				$(this).find('item').each(function(){
-					
-                    var itemArticleArray = new Array();
-
-                    var itemTitle = $(this).find('title').text();
-                    var itemType = $(this).find('type').text();
-                    var itemArticle = $(this).find('article');
-                    itemArticle.each(function(){
-                                     
-                                     var articleDetails = new Object();
-                                     articleDetails.articleTitle = $(this).find('article_title').text();
-                                     articleDetails.articleUrl = $(this).find('article_url').text();
-                                     articleDetails.articleDescription = $(this).find('article_description').text();
-                                     
-                                     itemArticleArray.push(articleDetails);
-                                     });
-                    
-                    var techWatchObject = new Object();
-                    techWatchObject.itemTitle = itemTitle;
-                    techWatchObject.itemType = itemType;
-                    techWatchObject.itemArticleArray = itemArticleArray;
-                    
-                    itemList.push(techWatchObject);
-
-					
-				});
-				
-				techWatchContentObject.itemSet = itemList;
 
 
-				//console.log('Multiple contentssss: '+JSON.stringify(techWatchContentObject));
-				jsonData.techWatch.push(techWatchContentObject);
-				
-					}
-					catch (error) {
-						var txt = "loadTechWatchData-There was an error on this page.\n\n";
-						txt += "Error description: " + error.message + "\n\n";
-						txt += "Click OK to continue.\n\n";
-						console.log(txt);
-					}
+    $(techWatchXml).find('techwatch').each(
 
-			});
+    function (index, element) {
+        try {
+            var techWatchContentObject = new Object();
+            var type = $(this).attr('type');
+            var twId = $(this).attr('id');
 
-	//console.log("*TECHWATCH* " + JSON.stringify(jsonData.techWatch));
-//	loadTechWatchQuotes();
 
+            if (type == 'current') {
+                currentTechWatchItemId = twId;
+                currentTechWatchItemIndex = index;
+
+                window.localStorage.setItem("currentTechWatchItemId", currentTechWatchItemId);
+                window.localStorage.setItem("currentTechWatchItemIndex", currentTechWatchItemIndex);
+
+            }
+
+
+            techWatchContentObject.type = type;
+            techWatchContentObject.twId = twId;
+
+            var itemList = new Array();
+
+            $(this).find('item').each(function () {
+
+                var itemArticleArray = new Array();
+
+                var itemTitle = $(this).find('title').text();
+                var itemType = $(this).find('type').text();
+                var itemArticle = $(this).find('article');
+                itemArticle.each(function () {
+
+                    var articleDetails = new Object();
+                    articleDetails.articleTitle = $(this).find('article_title').text();
+                    articleDetails.articleUrl = $(this).find('article_url').text();
+                    articleDetails.articleDescription = $(this).find('article_description').text();
+
+                    itemArticleArray.push(articleDetails);
+                });
+
+                var techWatchObject = new Object();
+                techWatchObject.itemTitle = itemTitle;
+                techWatchObject.itemType = itemType;
+                techWatchObject.itemArticleArray = itemArticleArray;
+
+                itemList.push(techWatchObject);
+
+
+            });
+
+            techWatchContentObject.itemSet = itemList;
+
+
+            //console.log('Multiple contentssss: '+JSON.stringify(techWatchContentObject));
+            jsonData.techWatch.push(techWatchContentObject);
+
+        } catch (error) {
+            var txt = "loadTechWatchData-There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            console.log(txt);
+        }
+
+    });
+
+    //console.log("*TECHWATCH* " + JSON.stringify(jsonData.techWatch));
+    //	loadTechWatchQuotes();
 }
 
 function loadTechWatchDataNew(techWatchXml) {
 
 
     $(techWatchXml).find('techwatch').each(
-                                        function (index, element) {
-                                            try {
 
-                                                var techWatchContentObject = new Object();
-                                                var type = $(this).attr('type');
-                                                var twId = $(this).attr('id');
-                                                var techWatchPublicationDate = $(this).attr('publishedDate');
+    function (index, element) {
+        try {
 
-
-                                                if (type == 'current') {
-                                                    currentTechWatchItemId = twId;
-                                                    currentTechWatchItemIndex = index;
-
-                                                    window.localStorage.setItem("currentTechWatchItemId", currentTechWatchItemId);
-                                                    window.localStorage.setItem("currentTechWatchItemIndex", currentTechWatchItemIndex);
-
-                                                }
+            var techWatchContentObject = new Object();
+            var type = $(this).attr('type');
+            var twId = $(this).attr('id');
+            var techWatchPublicationDate = $(this).attr('publishedDate');
 
 
-                                                techWatchContentObject.type = type;
-                                                techWatchContentObject.twId = twId;
-                                                techWatchContentObject.techWatchPublicationDate = techWatchPublicationDate;
-                                                techWatchContentObject.techWatchPublicationIndex = index;
-                                                techWatchContentObject.techWatchPublicationDateString = getFormattedDate(techWatchPublicationDate);
+            if (type == 'current') {
+                currentTechWatchItemId = twId;
+                currentTechWatchItemIndex = index;
+
+                window.localStorage.setItem("currentTechWatchItemId", currentTechWatchItemId);
+                window.localStorage.setItem("currentTechWatchItemIndex", currentTechWatchItemIndex);
+
+            }
 
 
-                                                var itemList = new Array();
+            techWatchContentObject.type = type;
+            techWatchContentObject.twId = twId;
+            techWatchContentObject.techWatchPublicationDate = techWatchPublicationDate;
+            techWatchContentObject.techWatchPublicationIndex = index;
+            techWatchContentObject.techWatchPublicationDateString = getFormattedDate(techWatchPublicationDate);
 
-                                                $(this).find('item').each(function () {
 
-                                                    var itemArticleArray = new Array();
+            var itemList = new Array();
 
-                                                    var itemTitle = $(this).find('title').text();
-                                                    var itemType = $(this).find('type').text();
-                                                    var itemArticle = $(this).find('article');
-                                                    itemArticle.each(function () {
+            $(this).find('item').each(function () {
 
-                                                        var articleDetails = new Object();
-                                                        articleDetails.articleTitle = $(this).find('article_title').text();
-                                                        articleDetails.articleUrl = $(this).find('article_url').text();
-                                                        articleDetails.articleDescription = $(this).find('article_description').text();
+                var itemArticleArray = new Array();
 
-                                                        itemArticleArray.push(articleDetails);
-                                                    });
+                var itemTitle = $(this).find('title').text();
+                var itemType = $(this).find('type').text();
+                var itemArticle = $(this).find('article');
+                itemArticle.each(function () {
 
-                                                    var techWatchObject = new Object();
-                                                    techWatchObject.itemTitle = itemTitle;
-                                                    techWatchObject.itemType = itemType;
-                                                    techWatchObject.itemArticleArray = itemArticleArray;
+                    var articleDetails = new Object();
+                    articleDetails.articleTitle = $(this).find('article_title').text();
+                    articleDetails.articleUrl = $(this).find('article_url').text();
+                    articleDetails.articleDescription = $(this).find('article_description').text();
 
-                                                    itemList.push(techWatchObject);
-                                                });
+                    itemArticleArray.push(articleDetails);
+                });
 
-                                                techWatchContentObject.itemSet = itemList;
-                                                jsonData.techWatch.push(techWatchContentObject);
+                var techWatchObject = new Object();
+                techWatchObject.itemTitle = itemTitle;
+                techWatchObject.itemType = itemType;
+                techWatchObject.itemArticleArray = itemArticleArray;
 
-                                            }
-                                            catch (error) {
-                                                var txt = "There was an error on this page.\n\n";
-                                                txt += "Error description: " + error.message + "\n\n";
-                                                txt += "Click OK to continue.\n\n";
-                                                //alert(txt);
-                                            }
+                itemList.push(techWatchObject);
+            });
 
-                                        });
+            techWatchContentObject.itemSet = itemList;
+            jsonData.techWatch.push(techWatchContentObject);
+
+        } catch (error) {
+            var txt = "There was an error on this page.\n\n";
+            txt += "Error description: " + error.message + "\n\n";
+            txt += "Click OK to continue.\n\n";
+            //alert(txt);
+        }
+
+    });
 
 
     if (jsonData.techWatch.length == 100) {
@@ -1761,18 +1645,14 @@ function getFormattedDate(input) {
         if (Math.floor(p1 / 10) != 1) {
             if (Math.floor(p1 % 10) == 1) {
                 return p1 + "st " + months[(p2 - 1)] + ", " + p3;
-            }
-            else if (Math.floor(p1 % 10) == 2) {
+            } else if (Math.floor(p1 % 10) == 2) {
                 return p1 + "nd " + months[(p2 - 1)] + ", " + p3;
-            }
-            else if (Math.floor(p1 % 10) == 3) {
+            } else if (Math.floor(p1 % 10) == 3) {
                 return p1 + "rd " + months[(p2 - 1)] + ", " + p3;
-            }
-            else {
+            } else {
                 return p1 + "th " + months[(p2 - 1)] + ", " + p3;
             }
-        }
-        else {
+        } else {
             return p1 + "th " + months[(p2 - 1)] + ", " + p3;
         }
 
@@ -1782,7 +1662,7 @@ function getFormattedDate(input) {
 }
 
 
-                             
+
 
 
 
@@ -1794,151 +1674,368 @@ function getFormattedDate(input) {
 // ---------------------------------------------------OFFLINE
 // ---------------------------------------
 // --------------------------------------------- OFFLINE
-
 
 function startThumbnailDownload() {
-//	alert('startThumbnailDownload');
-	var dataTemp = '';
-	dataTemp = jsonData;
-	console.log('compare');
-	compareAndUpdateJSON1(dataTemp);
+    //	alert('startThumbnailDownload');
+    var dataTemp = '';
+    dataTemp = jsonData;
+    console.log('compare');
+    compareAndUpdateJSON1(dataTemp);
 }
 
 
-function pendingDownloads(JData)
-{
-	
-	document.getElementById("showProgressBar").innerHTML = '';
-	//alert('JDATAAAAA :'+JSON.stringify(JData));
-	$.each(JData, function(key, newItem) {
-	
-			var downloadIdtest = newItem.elementId;
-			var downloadtitletest = newItem.elementTitle;
-			var isDownloadedFlag = newItem.isDownloadedFlag;
-			var elementAudio = newItem.elementAudio;
-			var val = newItem.val;
-			if (isOnline) {
-				downloadFile(downloadIdtest, downloadtitletest, isDownloadedFlag,elementAudio, val);
-			}
-			
-		});	
+function pendingDownloads(JData) {
 
-//getFileSystemRefForWriting(JData);
+    document.getElementById("showProgressBar").innerHTML = '';
+    //alert('JDATAAAAA :'+JSON.stringify(JData));
+    $.each(JData, function (key, newItem) {
+
+        var downloadIdtest = newItem.elementId;
+        var downloadtitletest = newItem.elementTitle;
+        var isDownloadedFlag = newItem.isDownloadedFlag;
+        var elementAudio = newItem.elementAudio;
+        var val = newItem.val;
+        if (isOnline) {
+            downloadFile(downloadIdtest, downloadtitletest, isDownloadedFlag, elementAudio, val);
+        }
+
+    });
+
+    //getFileSystemRefForWriting(JData);
 }
 
-
-
-function checkFileExistsEve(filefullpath, testid, name, link, type) {
-	window.resolveLocalFileSystemURI(filefullpath, function() {
-	}, function() {
-		// console.log("checkFileExists fail new"+testid);
-		downloadThumbImages(testid, name, link, type);
-	});
-}
 
 function showCategoriesListTT(data) {
-	//console.log('showCategoriesListTT'+JSON.stringify(data));
+    //console.log('showCategoriesListTT'+JSON.stringify(data));
 
-	
-	
-	var strHTMLCategory = "";
 
-	
-	if(data != null) {
+    var strHTMLCategory = "";
 
-		jsonData = data;
-		changeDownloadLogoutColor();
 
-		strHTMLCategory = '';
+    if (data != null) {
 
-		
+        jsonData = data;
+        changeDownloadLogoutColor();
 
-	}
+        strHTMLCategory = '';
+
+
+
+    }
 
 }
 
 function createJsonFormatOffline(Obj) {
-	jsonData = Obj;
-	if (Obj != null) {
-		noSubscribe = 'true';
-		changeDownloadLoginColor();
-		
-	
-//fix search issue
-		//$.mobile.changePage("#businessCategory");
-		$("#imgRefreshProgress").hide();
-	} 
-	else if (Obj == null || Obj == 'null' || Obj == ''){
-		// jAlert('If you are accessing Tech Time mobile app for the first time,
-		// you will need to connect to the internet to view the content. Please
-		// close the application and connect to Internet.', 'Tech Time');
-		$('#errormsg')
-				.html(
-						'If you are accessing Tech Time mobile app for the first time, you will need to connect to the internet to view the content.<br> Please close the application and connect to Internet.');
-		$.mobile.changePage("#errorPage");
-//		$.mobile.changePage("#loggedOutPage");
-//		$("#imgRefreshProgress").hide();
+    jsonData = Obj;
+    if (Obj != null) {
+        noSubscribe = 'true';
+        changeDownloadLoginColor();
 
-	}
+
+        //fix search issue
+        //$.mobile.changePage("#businessCategory");
+        $("#imgRefreshProgress").hide();
+    } else if (Obj == null || Obj == 'null' || Obj == '') {
+        // jAlert('If you are accessing Tech Time mobile app for the first time,
+        // you will need to connect to the internet to view the content. Please
+        // close the application and connect to Internet.', 'Tech Time');
+        $('#errormsg').html('If you are accessing Tech Time mobile app for the first time, you will need to connect to the internet to view the content.<br> Please close the application and connect to Internet.');
+        $.mobile.changePage("#errorPage");
+        //		$.mobile.changePage("#loggedOutPage");
+        //		$("#imgRefreshProgress").hide();
+    }
 
 }
 
-function downloadedListload(itemId,elementTitle,isDownloadedFlag,elementAudio,val,filePath)
-{
-    
-	//alert(" itemId"+itemId+ "   elementTitle "+elementTitle+"   isDownloadedFlag"+isDownloadedFlag+"  filePath"+filePath);
-   
-	if(val == 1)
-    {
-        type = 'A';
-        
-    } else if(val == 2)
-    {
-       type = 'V';
+function downloadedListload(itemId, elementTitle, isDownloadedFlag, elementAudio, val, filePath) {
 
-        
-    } else if(val == 3)
-    {
+    //alert(" itemId"+itemId+ "   elementTitle "+elementTitle+"   isDownloadedFlag"+isDownloadedFlag+"  filePath"+filePath);
+    if (val == 1) {
+        type = 'A';
+
+    } else if (val == 2) {
+        type = 'V';
+
+
+    } else if (val == 3) {
         type = 'P';
 
-        
-        
-    } else if(val == 4)
-    {
+
+
+    } else if (val == 4) {
         type = 'T';
 
-        
-    } else if(val == 5)
-    {
-       type = 'D';
-   
-    }
-	
-	var tempMedia = new Object();
-        
-        tempMedia.itemId = itemId;
-        tempMedia.title = elementAudio;      
-        tempMedia.publishedDate = '';        
-        tempMedia.type = type;
-        tempMedia.author = '';
-        tempMedia.isDownloaded = isDownloadedFlag;
-        tempMedia.localPath = filePath; 
-        tempMedia.val = val;
-        
-        
-        downloadJson.finalDownload.push(tempMedia);
-    
-    if(isOnline) {
-    	//alert("downloadJson---"+JSON.stringify(downloadJson));
-    	getFileSystemRefForWritingDownload(downloadJson);
-    }
-    
-    //alert("downloadJson=----"+JSON.stringify(downloadJson));
 
+    } else if (val == 5) {
+        type = 'D';
+
+    }
+
+    var tempMedia = new Object();
+
+    tempMedia.itemId = itemId;
+    tempMedia.title = elementAudio;
+    tempMedia.publishedDate = '';
+    tempMedia.type = type;
+    tempMedia.author = '';
+    tempMedia.isDownloaded = isDownloadedFlag;
+    tempMedia.localPath = filePath;
+    tempMedia.val = val;
+
+
+    downloadJson.finalDownload.push(tempMedia);
+
+    if (isOnline) {
+        //alert("downloadJson---"+JSON.stringify(downloadJson));
+        getFileSystemRefForWritingDownload(downloadJson);
+    }
+
+    //alert("downloadJson=----"+JSON.stringify(downloadJson));
+}
+
+
+function downloadThumbImagesOnLogin()
+{
+	$.each(jsonData.documents, function(key, oldItem) {
+        
+		if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+
+	$.each(jsonData.panelDiscussions, function(key, oldItem) {
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+
+	$.each(jsonData.interviews, function(key, oldItem) {
+        
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+
+	$.each(jsonData.techConf, function(key, oldItem) {
+		if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+	$.each(jsonData.technologySessions, function(key, oldItem) {
+		if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+	
+    $.each(jsonData.contributor, function(key, oldItem) {
+		if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+	
+	$.each(jsonData.events, function(key, oldItem) {
+		if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+	});
+    
+    $.each(jsonData.spotLight, function(key, oldItem){
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'thumb.png') == -1)
+        {
+            var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.thumb;
+                imageToDownload.type = 'thumb';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+        if(downloadedThumbs.indexOf(oldItem.itemId + 'actual.png') == -1)
+        {
+		  var imageToDownload = new Object();
+                imageToDownload.itemId = oldItem.itemId;
+                imageToDownload.url = oldItem.actual;
+                imageToDownload.type = 'actual';
+            
+            jsonData.imagesToDownload.push(imageToDownload);
+        }
+    
+    });
+    
+    if(jsonData.imagesToDownload.length != 0 && jsonData.imagesToDownload.length > 0)
+    {
+        downloadAllRequiredImages();
+    }
+}
+
+var downloadAllRequiredImagesCounter = 0;
+var downloadAllRequiredImagesLength;
+
+function downloadAllRequiredImages()
+{   
+    downloadAllRequiredImagesLength = jsonData.imagesToDownload.length;
+    
+    var imageItemId = jsonData.imagesToDownload[downloadAllRequiredImagesCounter].itemId;
+    var imageItemUrl = jsonData.imagesToDownload[downloadAllRequiredImagesCounter].url;
+    var imageItemType = jsonData.imagesToDownload[downloadAllRequiredImagesCounter].type;
+    
+    if(imageItemType == 'thumb')
+    {
+            downloadThumbImages(imageItemId, imageItemType, imageItemUrl);   
+    } else if(imageItemType == 'actual')
+    {
+            downloadThumbImages(imageItemId, imageItemType, imageItemUrl);   
+    }
+    
 }
 
 
 
+function downloadThumbImages(thumbId,imageName,imageLink)
+{
+    var url = '';
+        url = imageLink;
+    var name = '';
+        name = imageName;
+    var valueReturn = '';
+        valueReturn = 'false';
+    
+    var filePath = '';
+        filePath = '';
 
-
-
+    var fileTransfer = new FileTransfer();
+    
+    if(isOnline){
+    	
+    	if(device.platform == "Android"){
+	    	url = encodeURI(url);
+	    	filePath = sPath + "/images/"+ thumbId+imageName + ".png";
+	   	}else {
+	    		url = url;
+		    	filePath = sPath + "/images/"+ thumbId+imageName + ".png";
+	    		filePath = window.appRootDir.fullPath + "/images/"+ thumbId+imageName + ".png";
+	   	}
+    
+    	
+    	    if(url!=""){
+            	
+                    fileTransfer.download(
+                    		imageLink,
+                          filePath,
+                          function(entry){
+                             downloadAllRequiredImagesCounter = downloadAllRequiredImagesCounter + 1;
+                              if(downloadAllRequiredImagesCounter < downloadAllRequiredImagesLength)
+                              {
+                                  downloadAllRequiredImages();
+                              }
+                          },
+                          function(error) {
+                            downloadAllRequiredImagesCounter = downloadAllRequiredImagesCounter + 1;
+                             
+                              if(downloadAllRequiredImagesCounter < downloadAllRequiredImagesLength)
+                              {
+                                  downloadAllRequiredImages();
+                              }          
+                          }
+                    );
+                    
+                }
+    }
+    
+    
+}

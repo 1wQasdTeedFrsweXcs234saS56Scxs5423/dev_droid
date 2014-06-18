@@ -1133,6 +1133,23 @@ var currElementId = '';
 var currElementtype = '';
 var currElementcountNum = '';
 
+
+$(document).ready(function(){
+                  $('#detailPageArea').on('swipeleft', swipeleftHandler);
+                  $('#detailPageArea').on('swiperight', swiperightHandler);
+                  
+                  });
+
+function swipeleftHandler()
+{
+    showNextItem(currElementId);
+}
+
+function swiperightHandler()
+{
+    showpreItem(currElementId);
+}
+
 function UrlExistsImage(url) {
 	var http = new XMLHttpRequest();
 	http.open('HEAD', url, false);

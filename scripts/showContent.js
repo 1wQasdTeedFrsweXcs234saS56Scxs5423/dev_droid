@@ -649,56 +649,33 @@ function showUpcomingEventList(viewMonth, monthName) {
 
 						var actualThumb = '';
 						actualThumb = '';
-
-						// if(itemRes.thumbLoc!= ''){
-						//
-						// actualThumb = itemRes.thumbLoc;
-						//
-						// }else if(!isOnline){
-						//
-						// actualThumb = sPath + "/images/"
-						// +itemRes.itemId+"thumb.png";
-						//
-						// }else{
-						//
-						// actualThumb = itemRes.thumb;
-						//
-						// }
-
-						if (isOnline && itemRes.thumbLoc == '') {
-							// online and not downloaded
-							actualThumb = itemRes.thumb;
-							// console.log("//online and not
-							// downloaded"+actualThumb);
-						} else if (isOnline && itemRes.thumbLoc != '') {
-							// online and downloaded
-							actualThumb = sPath + "/images/" + itemRes.itemId
-									+ "thumb.png";
-							// console.log("//online and
-							// downloaded"+actualThumb);
-
-						} else if (!isOnline && itemRes.thumbLoc == '') {
-							// offline and not downloaded
-
-							actualThumb = 'images/TechTime.png';
-							// console.log("//offline and not
-							// downloaded"+actualThumb);
-
-						} else if (!isOnline && itemRes.thumbLoc != '') {
-							// offline and downloaded
-							actualThumb = sPath + "/images/" + itemRes.itemId
-									+ "thumb.png";
-							// console.log("//offline and
-							// downloaded"+actualThumb);
-
-						} else {
-							// defaul
-
-							actualThumb = sPath + "/images/" + itemRes.itemId
-									+ "thumb.png";
-							// console.log("default"+actualThumb);
-						}
-
+                        
+if(isOnline)
+    {
+        if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") != -1)
+        {
+            actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
+        } else if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") == -1)
+        {
+            if(itemRes.thumb != '')
+            {
+                actualThumb = itemRes.thumb;
+            } else if(itemRes.thumb == '')
+            {
+                actualThumb = "images/TechTime.png";
+            }
+        }
+    } else if(!isOnline)
+    {
+        if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") != -1)
+        {
+            actualThumb = sPath + "/images/" +itemRes.itemId+"thumb.png";
+        } else if(downloadedThumbs.indexOf(itemRes.itemId+"thumb.png") == -1)
+        {
+            actualThumb = "images/TechTime.png";
+        }
+    } 
+                        
 						var authoNames = '';
 						$.each(itemRes.author, function(key, itemAuthor) {
 							if (key == 0) {

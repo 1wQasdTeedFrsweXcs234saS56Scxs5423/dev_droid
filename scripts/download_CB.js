@@ -1722,24 +1722,7 @@ function backnav(pageId)
 function backPage(pageIdnew)
 {
     if(pageIdnew == "detailMediaPage")
-    {
-//    	console.log('eventsFlag'+eventsFlag);
-//    	console.log('mediaFlag'+mediaFlag);
-//    	console.log('spotLightFlag'+spotLightFlag);
-//    	
-//    	console.log("searchFromMediaPage"+searchFromMediaPage);
-//   	 console.log("searchFromEventsPage"+searchFromEventsPage);
-//   	 console.log("searchFromSpotlightPage"+searchFromSpotlightPage);
-//   	 console.log("searchFromUpcomingEventsPage"+searchFromUpcomingEventsPage);
-//   	 console.log("searchFromTAListResultPage"+searchFromTAListResultPage);
-//   	 console.log("searchFromAuthorDetailPage"+searchFromAuthorDetailPage);
-//   	 console.log("searchFromDownloadsPage"+searchFromDownloadsPage);
-//   	 console.log("searchFromMainPage"+searchFromMainPage);
-//   	 console.log("searchFromContactUsPage"+searchFromContactUsPage);
-//   	 console.log("searchFromAboutPage"+searchFromAboutPage);
-//   	 console.log("searchFromFaqPage"+searchFromFaqPage);
-//   	 console.log("searchFroSubscribPage"+searchFroSubscribPage);
-    	
+    {    	
     	var sptFlagGlobal = window.localStorage.getItem("spotLightFlag");
   	
            if(eventsFlag)
@@ -1793,9 +1776,6 @@ function backPage(pageIdnew)
 		               //refreshList();
 		               resetFilter();
             }
-      //
-        //clearDetailPage();
-
         
     }
     else if(pageIdnew == 'qnaPage')
@@ -1808,12 +1788,21 @@ function backPage(pageIdnew)
 	        $.mobile.changePage("#detailMediaPage",{transition: "none"});
         
         
-    	}
-else if(pageIdnew =='TAListResult' || pageIdnew=='UpcomingEventsPage'|| pageIdnew=='aboutTectTimePage' || pageIdnew=='contactUsPage' || pageIdnew=='faqPage')
+    	} else if(pageIdnew =='TAListResult' || pageIdnew=='UpcomingEventsPage'|| pageIdnew=='aboutTectTimePage' || pageIdnew=='contactUsPage' || pageIdnew=='faqPage')
     {
 	//alert("contactUsPage : "+pageIdnew);
         $.mobile.changePage("#businessCategory",{transition: "none"});
-    }
+    
+     
+        if(pageIdnew =='TAListResult' && digiPageFlag == true){
+      
+   
+        $.mobile.changePage("#digitalAreaHomePage",{transition: "none"});
+        }
+        }
+        
+        
+
 else if(pageIdnew =='playlistsItemPage')
 {
 resetPlaylistLMRParameters();
@@ -2035,6 +2024,7 @@ else if(pageIdnew =='addToPlaylistPage')
 	    }
 	    else if(searchFromTAListResultPage)
 	    {
+	    
 	        var catName = window.localStorage.getItem("currentCategoryOff");
 	        var catId = window.localStorage.getItem("currentCategoryIdOff");
 	        selectedCategoryId = catId;
@@ -2042,7 +2032,7 @@ else if(pageIdnew =='addToPlaylistPage')
 	        
 	        showTAListResult(catName, catId);
 	        $.mobile.changePage("#TAListResult",{transition: "none"});
-	        
+  	        
 	    }
 	    else if(searchFromAuthorDetailPage)
 	    {

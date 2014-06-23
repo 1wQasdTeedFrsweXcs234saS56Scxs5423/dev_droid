@@ -482,6 +482,7 @@ function showUpcomingEventList(viewMonth, monthName) {
 	eventsFlag = true;
 	mediaFlag = false;
 	alldownloadFlag = false;
+	digiPageFlag = false;
 	// alert('eventsFlag-----'+eventsFlag+'\n mediaFlag----------'+mediaFlag);
 
 	// alert('showUpcomingEventList');
@@ -822,6 +823,7 @@ function UpcomingEventsDetail(itemId) {
 	mediaFlag = false;
 	playlistItemsPageFlag = false;
 	alldownloadFlag = false;
+	digiPageFlag = false;
 	// alert('eventsFlag-----'+eventsFlag+'\n mediaFlag----------'+mediaFlag);
 
 	var arrayOfCategoryNames = new Array();
@@ -1034,14 +1036,17 @@ function setFlag(a) {
 		mediaFlag = false;
 		spotLightFlag = true;
 		playlistItemsPageFlag = false;
+	
 
 	} else if (a == "media") {
 		mediaFlag = true;
 		spotLightFlag = false;
 		playlistItemsPageFlag = false;
+		
 	}
 
 	eventsFlag = false;
+	digiPageFlag = false;
 
 }
 // ----------------------------------------------List Of subscribed
@@ -1050,8 +1055,26 @@ function setFlag(a) {
 function getList() {
 	var strHTMLCategory = "";
 	$('#TAcontentArea').empty('');
+	var showDigitalTab = false;
 
 	document.getElementById('noSubscribeDiv').style.display = "none";
+	
+	 $.each(jsonData.category, function(key, item){
+               if((jsonData.digitalAreas.indexOf(item.categoryid) != -1) && (item.subscribe == "yes") && (jsonData.digitalAreas.length != 0) && (jsonData.digitalAreas.length > 0))
+               {
+                    showDigitalTab = true;
+               }
+           });
+    
+    if(showDigitalTab)
+    {
+        strHTMLCategory = strHTMLCategory + "<div class='listItemClick'><div class=dynamicDivList><a class='anchorCategory' data-transition='slide' href='#digitalAreaHomePage' onclick='loadDigitalContents();'>";
+        strHTMLCategory = strHTMLCategory+ "<div style='color:white;margin-left:3.5%;'>Digital<img src='images/icon_whiteRight.png'  width='13' height='13' style='float:right;padding-right:4%;' onclick='loadDigitalContents();'/>";
+        strHTMLCategory = strHTMLCategory+ "</div></a></div></div>";
+    } else if(!showDigitalTab)
+    {
+        strHTMLCategory = "";
+    }
 
 	// alert("noSubscribe---"+noSubscribe);
 	if (noSubscribe == "true") {
@@ -1061,7 +1084,8 @@ function getList() {
 						jsonData.category,
 						function(key, item) {
 
-							if (item.subscribe == "yes") {
+							if (item.subscribe == "yes" && jsonData.digitalAreas.indexOf(item.categoryid) == -1) {
+						
 
 								strHTMLCategory = strHTMLCategory
 										+ "<div class='listItemClick'><div class=dynamicDivList><li><a id="
@@ -1072,7 +1096,7 @@ function getList() {
 										+ JSON.stringify(item.categoryid)
 										+ ")'>";
 								strHTMLCategory = strHTMLCategory
-										+ "<div style='color:white;margin-left:3.5%'> "
+										+ "<div style='color:white;margin-left:3.5%;'> "
 										+ item.categoryname
 										+ "<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:4%;'/>";
 								strHTMLCategory = strHTMLCategory
@@ -1110,6 +1134,7 @@ function showTAListResult(currentCategory, currentCategoryId) {
 
 	// console.log(currentCategory+'<---->'+currentCategoryId);
 	searchFlag = false;
+	
 
 	// console.log('searchFlag-else-'+searchFlag);
 
@@ -1611,7 +1636,7 @@ function postJSONData(localJSONData, postMode) {
 	var uName = document.getElementById("lblUserName").innerHTML;
 	uName = uName.replace(/\./g, '_');
 
-	var linkSubscribe = 'https://techtime.accenture.com/techtimemobile/subscribe-service/uid=';
+	var linkSubscribe = 'https://techtime.stage2.accenture.com/techtimemobile/subscribe-service/uid=';
 	linkSubscribe = linkSubscribe + uName;
 
 	// alert('-->'+linkSubscribe);
@@ -2932,7 +2957,7 @@ function contactUsArea() {
 
 	uName = uName.replace(/\./g, '_');
 
-	var linkContact = 'https://techtime.accenture.com/techtimemobile/contactus/uid=';
+	var linkContact = 'https://techtime.stage2.accenture.com/techtimemobile/contactus/uid=';
 	linkContact = linkContact + uName;
 
 	// alert("SUBMIT BUTTON CLICKED");
@@ -3701,9 +3726,9 @@ function postUserDownloads(localDownloadedData) {
 	var uName = document.getElementById("lblUserName").innerHTML;
 	uName = uName.replace(/\./g, '_');
 
-	var downloadLink = 'https://techtime.accenture.com/techtimemobile/mobiletrack';
+	var downloadLink = 'https://techtime.stage2.accenture.com/techtimemobile/mobiletrack';
 
-	// 'https://techtime.accenture.com/mobile_download_items/save';
+	// 'https://techtime.stage2.accenture.com/mobile_download_items/save';
 	// downloadLink = downloadLink + uName;
 
 	var localDownloadedData = localDownloadedData;

@@ -3,14 +3,16 @@ function setTaFlag()
 {
                 spotLightFlag = false;
     eventsFlag = false;
-    mediaFlag = true;         
+    mediaFlag = true;
+    //digiPageFlag = false;         
 }
 
 function setSpotLightFlag()
 {
                 spotLightFlag = true;
     eventsFlag = false;
-    mediaFlag = false;        
+    mediaFlag = false; 
+    //digiPageFlag = false;       
 }
 function getListElement(itemRes,count,itemId,itemIndex)
 {
@@ -34,6 +36,7 @@ function getListElement(itemRes,count,itemId,itemIndex)
     dwFlag = false;
     alldownloadFlag = false;
     spotFlagSet = false
+    //digiPageFlag = false;
 
   
                 

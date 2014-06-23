@@ -12,6 +12,7 @@ function showSpotLightContent() {
     dwPgflag = false;
     var stringIWant = '';
     playlistItemsPageFlag = false;
+    //digiPageFlag = false;
     
 
 
@@ -377,6 +378,7 @@ function spotlightDataTypes(elementId, type, countNum) //earlier 1100lines now 4
     searchFromMainPage = false;
     searchFromAuthorDetailPage = false;
     detailFlag = false; 
+    //digiPageFlag = false;
  
    hidePopup();	
 	var strHTMLDetail = '';

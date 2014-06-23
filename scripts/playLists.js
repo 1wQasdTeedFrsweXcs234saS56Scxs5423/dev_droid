@@ -13,7 +13,7 @@ var playlistDownloadedThumbIndex = 0;
 
 function loadPlaylistsData() {
     var loggedInUsername = jsonData.loggedUserName.replace(/_/g, '.');
-    var playlistRSS = "https://techtime.accenture.com/mobile-playlist/" + loggedInUsername;
+    var playlistRSS = "https://techtime.stage2.accenture.com/mobile-playlist/" + loggedInUsername;
     $.ajax({
         type: "GET",
         url: playlistRSS,
@@ -358,14 +358,14 @@ function displayPlaylistItems(playlistId)
              
         } else if(!isOnline)
         {
-               if(myPlaylistItems[0].itemPath.indexOf('techtime.accenture') != -1)
+               if(myPlaylistItems[0].itemPath.indexOf('techtime.stage2.accenture') != -1)
                 {
                         if(myPlaylistItems[0].isItemDownloaded == false)
                         {
-                            //var playlistVideoPlayer = '<video id="playlistItemPlayer" type="video/mp4" style="width:100%;" src="https://techtime.accenture.com" controls></video>';
+                            //var playlistVideoPlayer = '<video id="playlistItemPlayer" type="video/mp4" style="width:100%;" src="https://techtime.stage2.accenture.com" controls></video>';
                         	 var playlistVideoPlayer = '<video id="playlistItemPlayer" class="video-js vjs-default-skin" preload="none" style="width:100%;"  controls data-setup="{}"><source src="'+myPlaylistItems[0].itemPath+'" type="video/mp4"></video>';
                         }
-                } else if(myPlaylistItems[0].itemPath.indexOf('techtime.accenture') == -1)
+                } else if(myPlaylistItems[0].itemPath.indexOf('techtime.stage2.accenture') == -1)
                 {
                 	if(myPlaylistItems[0].isItemDownloaded == true)
                         {
@@ -649,7 +649,7 @@ var currentOpenPlaylist = '';
 // FIXME: Back of Playlist Items Page, Re-Render the Playlists List Page with the updated names and playlists
 function renamePlaylist() {
  
-    var renamePlaylistService = 'https://techtime.accenture.com/techtimemobile/playlist-service';
+    var renamePlaylistService = 'https://techtime.stage2.accenture.com/techtimemobile/playlist-service';
     var renamePlaylistName = $('#renamePlaylistNamePlaceholder').val();
     renamePlaylistName = renamePlaylistName.replace(/[^a-zA-Z0-9 ]/g, "");
     //alert("renamePlaylistName : " + renamePlaylistName);
@@ -751,7 +751,7 @@ function cancelDeletePlaylistAction() {
 // TODO: Auto switch to Playlists List Page
  
 function deletePlaylist() {
-    var deletePlaylistService = 'https://techtime.accenture.com/techtimemobile/playlist-service';
+    var deletePlaylistService = 'https://techtime.stage2.accenture.com/techtimemobile/playlist-service';
  
     var loggedInUsername = jsonData.loggedUserName.replace(/_/g, '.');
  
@@ -849,7 +849,7 @@ function cancelNewPlaylistCreation() {
 }
  
 function createNewPlaylist() {
-    var createPlaylistService = 'https://techtime.accenture.com/techtimemobile/playlist-service';
+    var createPlaylistService = 'https://techtime.stage2.accenture.com/techtimemobile/playlist-service';
     var createPlaylistName = $('#newPlaylistNamePlaceholder').val();
     var playlistExists = false;
     createPlaylistName = createPlaylistName.replace(/[^a-zA-Z0-9 ]/g, "");
@@ -1016,7 +1016,7 @@ var addedItemToPlaylistName = '';
 function updateAddedItemOnServer(addedToPlaylistId, addedItemId) {
     var localPlaylistId = addedToPlaylistId;
     var localItemId = addedItemId;
-    var addItemToPlaylistService = 'https://techtime.accenture.com/techtimemobile/playlist-items-service';
+    var addItemToPlaylistService = 'https://techtime.stage2.accenture.com/techtimemobile/playlist-items-service';
  
     var loggedInUsername = jsonData.loggedUserName.replace(/_/g, '.');
     if (isOnline) {
@@ -1220,7 +1220,7 @@ sharePlaylistJSON += '"}}';
 
 function sharePlaylistsToRecepients(serviceJson)
 {
-  var sharePlaylistService = 'https://techtime.accenture.com/techtimemobile/playlist-service';
+  var sharePlaylistService = 'https://techtime.stage2.accenture.com/techtimemobile/playlist-service';
   
   if(isOnline)
   {

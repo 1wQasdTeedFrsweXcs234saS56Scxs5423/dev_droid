@@ -323,6 +323,7 @@ function readRSSFileJSON(file) {
 				}
 			}
 		}
+		loadDigitalTab();
 
 	};
 	reader.readAsText(file);

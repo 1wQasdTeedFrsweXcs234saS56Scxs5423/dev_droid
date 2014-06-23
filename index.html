@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
 		<meta charset="utf-8">
-	
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-		
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 
 		<title>Tech Time</title>
@@ -20,9 +16,6 @@
 		<link rel="stylesheet" href="css/mainTechtime.css" type="text/css"  />
 		<link rel="stylesheet" href="css/drop-down-menu.css" type="text/css"  />
 		<link rel="stylesheet" href="css/video-js.css" type="text/css"  />
-		<!-- This is for the IPA Packaging-->
-		<!--<script type="text/javascript" src="libs/cordova.ios.js" charset="utf-8"></script>-->
-		<!-- This is for the android -->
 
 		<script type="text/javascript" src="libs/cordova-2.5.0.js" charset="utf-8"></script>
 		<script type="text/javascript" src="libs/jquery-1.8.0.js"></script>
@@ -30,6 +23,7 @@
 		<script type="text/javascript" src="libs/jquery.alerts.js" ></script>
 		<script type="text/javascript" src="libs/drop-down-menu.js"></script>
 		<script type="text/javascript" src="libs/video.js"></script>
+		<script type="text/javascript" src="libs/google-analytics.js"></script>
 		<script type="text/javascript" src="scripts/init.js"></script>
 		<script type="text/javascript" src="scripts/fileManipulation.js"></script>
 		<script type="text/javascript" src="scripts/techtime.js"></script>
@@ -43,11 +37,13 @@
 		<script type="text/javascript" src="scripts/playLists.js"></script>   	   
 		<script type="text/javascript" src="scripts/Sync.js"></script> 
 		<script type="text/javascript" src="scripts/contribute.js"></script> 
+		<script type="text/javascript" src="scripts/digital.js"></script> 
+		<script type="text/javascript" charset="utf-8" src="scripts/Spotlight.js"></script>  
 		<script type="text/javascript" src="plugins/ChildBrowser.js"></script>
 		<script type="text/javascript" charset="utf-8" src="plugins/video.js"></script>
 		<script type="text/javascript" charset="utf-8" src="plugins/pdfviewer.js"></script>
-	    <script type="text/javascript" charset="utf-8" src="scripts/Spotlight.js"></script>       
-		<script type="text/javascript" src="libs/google-analytics.js"></script>
+	        
+		
 		
 			
 
@@ -350,24 +346,36 @@
 				document.getElementById('a3').style.display = 'none';
 			}
 
-			function homeScreenMenus(el) {
-
-				if (el == "techArea" || el == "spotlight") {
-
-					var b = $('#' + el + '1').is(':visible');
-
-					$('#techAreaArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;' />");
-					$('#spotlightArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;' />");
-					$(".mainMenuListContent").hide();
-
-					if (!b) {
-						$('#' + el + '1').toggle('fast');
-						//$('#' + el + '1').show('slow');
-						$('#' + el + 'Arrow').html("<img src='images/icon_whiteDown.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
-					}
-				}
-
-			}
+					function homeScreenMenus(el)
+                            {
+                                if(el == "techArea" || el == "spotlight"){
+                                    
+                                    var b = $('#'+el+'1').is(':visible');
+                                    
+                                    $('#techAreaArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
+                                    $('#spotlightArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
+                                    $(".mainMenuListContent").hide();
+                                    
+                                    if(!b){
+                                        $('#'+el+'1').show('slow');
+                                        $('#'+el+ 'Arrow').html("<img src='images/icon_whiteDown.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
+                                    }
+                                } else if(el == "digitalAreas")
+                                {
+                                    var elementDigitalAreas = $('#digitalAreaHomePageTechnologyArea').is(':visible');
+                                    
+                                    if(elementDigitalAreas)
+                                    {
+                                        $('#digitalTechAreaArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
+                                        $('#digitalAreaHomePageTechnologyArea').css('display', 'none');
+                                    } else if(!elementDigitalAreas)
+                                    {
+                                        $('#digitalTechAreaArrow').html("<img src='images/icon_whiteDown.png' width='13' height='13' style='float:right;padding-right:20%;'/>");
+                                        $('#digitalAreaHomePageTechnologyArea').css('display', 'block');
+                                    }
+                                    
+                                }
+                            }
 
 			// <!------------------------------NAVIGATE----------------------------------------------------------->
 
@@ -382,7 +390,7 @@
 				$('#spotlightArrow').html("<img src='images/icon_whiteRight.png' width='13' height='13' style='float:right;padding-right:20%;' />");
 				$(".mainMenuListContent").hide();
 
-				var allNavigateDiv = ["navigateDiv", "navigateBusinessCategory", "navigateDetailMediaPage", "navigateDetailAuthor", "navigateSpotlightPage", "navigateUpcomingEventsPage", "navigateSubscribePage", "navigateAboutTectTimePage","navigateContributePage", "navigateContactUsPage", "navigateFaqPage", "navigateTAListResult", "navigateResultPage","navigateTechWatchPage","navigateDownloadsPage","navigatePlaylistsPage","navigatePlaylistsItemPage","navigateSharePlaylistsPage"];
+				var allNavigateDiv = ["navigateDiv", "navigateBusinessCategory", "navigateDetailMediaPage", "navigateDetailAuthor", "navigateSpotlightPage", "navigateUpcomingEventsPage", "navigateSubscribePage", "navigateAboutTectTimePage","navigateContributePage", "navigateContactUsPage", "navigateFaqPage", "navigateTAListResult", "navigateResultPage","navigateTechWatchPage","navigateDownloadsPage","navigatePlaylistsPage","navigatePlaylistsItemPage","navigateSharePlaylistsPage", "navigateDigitalPage"];
 
 				currNavigateDivContent = document.getElementById(currNavigateDiv).innerHTML;
 				
@@ -455,7 +463,8 @@
                     
                   //  console.log('currentSearchKey--'+currentSearchKey);
                 }
-
+                
+                
 
 
 			
@@ -586,9 +595,9 @@
 
 		<!--	<video width="100%" controls="controls">
 
-                        <source src="https://techtime.accenture.com/sample1.m3u8" type="vnd.apple.mpegURL"/>
+                        <source src="https://techtime.stage2.accenture.com/sample1.m3u8" type="vnd.apple.mpegURL"/>
 
-                        <source src="https://techtime.accenture.com/hls-vod/sample1_150kbps.f4v" type="video/mp4"/>
+                        <source src="https://techtime.stage2.accenture.com/hls-vod/sample1_150kbps.f4v" type="video/mp4"/>
 
                 </video> -->
 
@@ -645,6 +654,9 @@
 
 					<div data-role="content" class="backgd"></div>
 				</div>
+				
+				
+
 
 
 
@@ -702,7 +714,7 @@
 						<tr>
 							<td style="width:100%; padding-left:20px;" align='left'>
 							<div style="width:150px; height : 30px;background:orange; line-height : 30px;">
-								<div style="width:120px; height : 30px;background:orange; color:white; line-height : 30px;" onclick='homeScreenMenus("spotlight")'>
+								<div style="width:120px; height : 30px;background:orange; color:white; line-height : 30px;" onclick='("spotlight")'>
 									&nbsp; Close
 								</div>
 							</div></td>
@@ -823,7 +835,9 @@
 			<!-- end of the navigate div -->
 
 			
-							<div class="footerPadding footerFixed" style="background:#FOEFED;">				
+			<div class="footerPadding" style="background:#FOEFED;">	
+			<br>
+			<br>			
 				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label> <br/> -->
 				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
 			</div>
@@ -989,7 +1003,9 @@
 			<br>
 			<!--  --------------------------------------------------->
 
-			<div class="footerPadding footerFixed" style="background:#FOEFED;">				
+			<div class="footerPadding" style="background:#FOEFED;">		
+			<br>
+			<br>		
 				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label> <br/> -->
 				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
 			</div>
@@ -1444,6 +1460,109 @@
 			<!--  --------------------------------------------------->
 
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- ******************************************** Page - digital ******************************************** -->
+
+		<div data-role="page" id="digitalAreaHomePage" class="ContactUsPage">
+
+			<!-- ******** Header **********-->
+			<div  style="padding-top: 0px">
+
+				<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; border: none; padding : 0px; margin: 0px;" class='headerStyle'>
+					<tr>
+						<td style="width: 50%;height:70px;"><img id="accLogoImg8" src="images/header_accentureRed.png" class="acnLog" /></td>
+						<td style="width: 50%;height:70px;" valign="bottom"><img id="emp8" src="images/header_empoweringYourself.png" class="eYourself" /></td>
+					</tr>
+					<tr>
+						<td style="width: 50% ;height:25px; background-color :#cbcccc" ><img  id="highPerfImg8" src="images/header_highPerformance.png" class="highPerf"></td>
+						<td style="width: 50%;height :25px;background-color :#cbcccc" align="right">
+						<div data-rel="back" class="backBtnAnch"><img src="images/back.png" class="backBtn pushEffect" onClick = "backnav('digitalAreaHomePage');clearSearchTip(); defaultNavigate();hitBackButton();">
+						</div><a href="" class="navigatebtnAnch" > <img src="images/navigate.png" class="navigatebtn pushEffect" onclick='showNavigateDiv("navigateDigitalPage")' ></a></td>
+
+					</tr>
+					<tr>
+						<td colspan = "2" class="searchMainDiv">
+						<div class="searchTextboxDiv">
+							<input id="searchContactUsPage" type="text" placeholder="Search" title="Search" class="searchBar" style="padding:0px;margin:0px; margin-top:0px; margin-right:0px;left:0px;">
+						</div>
+						<div class="searchImgDiv">
+							<img src="images/icon_search.png" class="searchImg"  onclick='pageFlagSet("contactUsPage");showSearchResult("searchContactUsPage","All","All","null")'/>
+						</div></td>
+					</tr>
+				</table>
+
+			</div><!-- /header -->
+
+			<!-- ******** Content **********-->
+			<div id='navigateDigitalPage' class='navigateMenu'></div>
+			<!-- navigateMenu DIV -->
+
+			<div data-role="content">
+
+				<div class="contentGrayBg" style="padding: 0px;background : #F0EFED">
+
+                <div class=dynamicDiv style="margin-top:7px;">
+                    <a id="digitalTechArea" class='anchorCategory test' onclick='homeScreenMenus("digitalAreas");'>
+                        <div style='color:white;'>Digital Areas
+                            <div id="digitalTechAreaArrow" style="width:50px;float:right;">
+                                <img src='images/icon_whiteDown.png' width='13' height='13' style='float:right;padding-right:20%;'/>
+                            </div>
+                        </div>
+                    </a>
+                  
+                </div>
+           
+                <div id="digitalAreaHomePageTechnologyArea" style="background:#F0EFED"></div>
+                		
+
+				</div>
+				<!-- Content Gray Area -->
+
+			</div>
+			<!-- Content End -->
+
+			<!--  --------------------------------------------------->
+
+			<div class="footerPadding footerFixed" style="background:#FOEFED;">				
+				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label> <br/> -->
+				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
+			</div>
+
+			<div data-position="fixed" data-tap-toggle ="false" align="center" style="background:grey" class="toggleButtonDiv">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<table >
+						<tr>
+							<td><label style="font-size:16px;font-weight:bold">Online Mode</label></td>
+							<td>
+							<input class="abc" type="radio" align="center" name="radio-view6" id="radio-view-a6" value="online">
+							<label for="radio-view-a6">On</label>
+							<input class="xyz" type="radio"  name="radio-view6" id="radio-view-b6" value="offline">
+							<label for="radio-view-b6">Off</label></td>
+						</tr>
+					</table>
+				</fieldset>
+
+			</div>
+
+			<!--  --------------------------------------------------->
+
+		</div>
+		
 
 		<!-- ******************************************** FAQ ******************************************** -->
 
@@ -1677,7 +1796,9 @@
 
 		<!--  --------------------------------------------------->
 
-		<div class="footerPadding" style="background:#FOEFED;">				
+		<div class="footerPadding" style="background:#FOEFED;">	
+		<br>
+		<br>			
 				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label> <br/> -->
 				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
 			</div>
@@ -1965,7 +2086,9 @@
 
 			<!--  --------------------------------------------------->
 
-			<div class="footerPadding footerFixed" style="background:#FOEFED;">				
+			<div class="footerPadding" style="background:#FOEFED;">		
+			<br>
+			<br>		
 				<!-- <label style="color: red; font-style: normal; font-size: 12px"><b>Go to Accenture.com</b></label> <br/> -->
 				<label style="font-size: 12px;margin-left:12px;">&copy; 2001 - 2014 Accenture. All Rights Reserved.</label>
 			</div>
@@ -2778,4 +2901,13 @@
 
 
 	</body>
+	
+	
+	
+	
+	
+	
+	
+	
+
 </html>

@@ -65,11 +65,15 @@ function showSortedTAListing(curCatId, curCatName,sortBySubCat,sortByMediaType,s
     
     
     $.each(jsonData.category, function(key, item) {
+    
+
                 //console.log("obj-------------"+JSON.stringify(item));
        
         if(item.categoryid == curCatId &&  item.categoryname == curCatName){   
            
            $.each(item.subCategory, function(key, subItem) {
+           
+      
                   resSubcatList.push(subItem.subCategoryName);
                   
                  
@@ -512,6 +516,7 @@ function showSortedTAListing(curCatId, curCatName,sortBySubCat,sortByMediaType,s
     
     
     if(resFinal.length > 5){
+  
 
         
 

@@ -61,7 +61,7 @@ window.localStorage.setItem("currentPage",lastVisitedPage);
 	        	isOnline = true;
 				usrToggle = true;
 		        isOnline = true;
-		        parent.window.location.href = "https://techtime.accenture.com/mobile/index.php";      
+		        parent.window.location.href = "https://techtime.stage2.accenture.com/mobile/index.php";      
 		        window.localStorage.setItem("status", "online");
 		        changeDownloadLoginColor();
 		       	    
@@ -347,10 +347,10 @@ function reloginToTT()
 	usrToggle = true;
        isOnline = true;
         parent.window
-        window.location.href = "https://techtime.accenture.com/mobile/index.php";      
+        window.location.href = "https://techtime.stage2.accenture.com/mobile/index.php";      
         window.localStorage.setItem("status", "online");
         changeDownloadLoginColor(); 
-	//parent.window.location.href = "https://techtime.accenture.com/mobile/index.php";      
+	//parent.window.location.href = "https://techtime.stage2.accenture.com/mobile/index.php";      
 //    window.localStorage.setItem("status", "online");
   //  alert("RELOGIN Fn Called End");
    

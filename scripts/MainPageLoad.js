@@ -29,27 +29,27 @@ var isSubscribeEvent = "no";
 
 // ----------------------------------- RSS LINKS
 // --------------------------------------------------------------------------------
-var subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
-var technologyAreaListUrl = "https://techtime.accenture.com/techtimemobile/subscribe-service/all";
+var subscribeRss = "https://techtime.stage2.accenture.com/techtimemobile/subscribe-service/uid=";
+var technologyAreaListUrl = "https://techtime.stage2.accenture.com/techtimemobile/subscribe-service/all";
 
-var rssUrl = "https://techtime.accenture.com/techno-areas/0/audio-video-listing-view";
-var documentRss = "https://techtime.accenture.com/techno-areas/0/documents-listing-view";
-var eventsRss = "https://techtime.accenture.com/techno-areas/0/events-listing-view";
+var rssUrl = "https://techtime.stage2.accenture.com/techno-areas/0/audio-video-listing-view";
+var documentRss = "https://techtime.stage2.accenture.com/techno-areas/0/documents-listing-view";
+var eventsRss = "https://techtime.stage2.accenture.com/techno-areas/0/events-listing-view";
 
-var contributorRss = "https://techtime.accenture.com/mobile-contributor-listing.xml";
-var spotlightRss = "https://techtime.accenture.com/mobile-spotlight-feeds.xml";
+var contributorRss = "https://techtime.stage2.accenture.com/mobile-contributor-listing.xml";
+var spotlightRss = "https://techtime.stage2.accenture.com/mobile-spotlight-feeds.xml";
 //spotlightRss = "http://10.0.2.2:8080/spotlight/spotlight.xml";
-var aboutTechTimeRss = "https://techtime.accenture.com/mobile-about-us/aboutus.xml";
-var faqRss = "https://techtime.accenture.com/mobile-faq-rss/faq.xml";
+var aboutTechTimeRss = "https://techtime.stage2.accenture.com/mobile-about-us/aboutus.xml";
+var faqRss = "https://techtime.stage2.accenture.com/mobile-faq-rss/faq.xml";
 
-var techWatchRss = "https://techtime.accenture.com/mobile-tech-watch";
+var techWatchRss = "https://techtime.stage2.accenture.com/mobile-tech-watch";
 
 //var playlistsRSS =  "http://10.0.2.2:8080/spotlight/playlists.xml" 
 
-var playlistsRSS = "https://techtime.accenture.com/playlists.xml";
+var playlistsRSS = "https://techtime.stage2.accenture.com/playlists.xml";
 
-//var techWatchRss = "https://techtime.accenture.com/techwatch_date2.xml";
-//var techWatchQuotesRss = "https://techtime.accenture.com/mobile-quotes-rss";
+//var techWatchRss = "https://techtime.stage2.accenture.com/techwatch_date2.xml";
+//var techWatchQuotesRss = "https://techtime.stage2.accenture.com/mobile-quotes-rss";
 //var techWatchQuotesRss = "http://10.0.2.2:8080/techWatch/techwatchQuotes.xml";
 // ------------------------- Create JSON Structure -------------------------------
 var selectedCategoryId = '';
@@ -91,6 +91,7 @@ function createJsonFormat() {
     //Start:Added by Akshay for format change feature on 5/27/2014
     jsonData.technologySessions = new Array();
     jsonData.imagesToDownload = new Array();
+    jsonData.digitalAreas = new Array();
     //End
 }
 
@@ -110,6 +111,18 @@ function createJsonPodtype(podtype) {
 function getSubscribeRss() {
 
     var uName = document.getElementById("lblUserName").innerHTML;
+    
+	
+ 	uName = "saikat.a.saha";
+ 	
+ 	var loginGAUser = uName;
+ 	
+ 	userGATracker(loginGAUser , chkDate);
+ 	
+ 	var loginUser = uName;
+ 	
+ 	
+ 	//userDetailsTracker();
 
     uName = uName.replace(/\./g, '_');
 
@@ -119,7 +132,7 @@ function getSubscribeRss() {
 
 
 
-    subscribeRss = "https://techtime.accenture.com/techtimemobile/subscribe-service/uid=";
+    subscribeRss = "https://techtime.stage2.accenture.com/techtimemobile/subscribe-service/uid=";
     subscribeRss = subscribeRss + uName;
 
 
@@ -141,7 +154,6 @@ function getSubscribeRss() {
 }
 
 function subscribeTA(xml) {
-    loadAboutTechTimeRss();
     var flag = 0;
     //newAppVersion = $(xml).find('item').attr('availableAppVersion');
     $(xml).find('item').each(
@@ -178,17 +190,17 @@ function subscribeTA(xml) {
     if (subscribeCatList == "") {
         subscribeCatList = '0';
     } else {
-        rssUrl = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/audio-video-listing-view";
+        rssUrl = "https://techtime.stage2.accenture.com/techno-areas/" + subscribeCatList + "/audio-video-listing-view";
         console.log("Saikat Services -- " + rssUrl);
 
-        eventsRss = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/events-listing-view";
-        documentRss = "https://techtime.accenture.com/techno-areas/" + subscribeCatList + "/documents-listing-view";
+        eventsRss = "https://techtime.stage2.accenture.com/techno-areas/" + subscribeCatList + "/events-listing-view";
+        documentRss = "https://techtime.stage2.accenture.com/techno-areas/" + subscribeCatList + "/documents-listing-view";
 
 
 
         console.log('rssUrl-->' + rssUrl + '\n eventsRss' + eventsRss + '\n documentRss' + documentRss);
 
-        // rssUrl = "<item>		<title>TGP SAP Mobility</title>		<description><![CDATA[TGP SAP Mobility by Jordi Paris]]></description>		<author_count>1</author_count>		<author>Jordi Paris</author>		<category><![CDATA[SAP-1|Mobility-3]]></category>		<pods_date>January 28, 2013</pods_date>				<audio length=3360216 type=audio/mpeg>https://techtime.accenture.com/sites/default/files/mobile_audio/TGP_SAP_Mobility_V1_0.mp3</audio>				<video length=21340040 type=video/mp4>https://techtime.accenture.com/sites/default/files/mobile_videos/TGP_SAP_Mobility_V1.0.mp4</video>		<transcript  ></transcript>	<presentation ></presentation>		<qna><![CDATA[]]></qna>	<actual length=38697 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_large/TGP_SAP_Mobility_mobile_large.png</actual><thumb length=16939 type=image/png>https://techtime.accenture.com/sites/default/files/mobile_podcast_thumb/TGP_SAP_Mobility_mobile_small.png</thumb><contentid>964</contentid><content_type>podcast</content_type><pubDate>March 1, 2013 - 12:09 am</pubDate><pods_formattype>Audios</pods_formattype><Content_lang>en</Content_lang><Content_rating>0</Content_rating></item>"
+        // rssUrl = "<item>		<title>TGP SAP Mobility</title>		<description><![CDATA[TGP SAP Mobility by Jordi Paris]]></description>		<author_count>1</author_count>		<author>Jordi Paris</author>		<category><![CDATA[SAP-1|Mobility-3]]></category>		<pods_date>January 28, 2013</pods_date>				<audio length=3360216 type=audio/mpeg>https://techtime.stage2.accenture.com/sites/default/files/mobile_audio/TGP_SAP_Mobility_V1_0.mp3</audio>				<video length=21340040 type=video/mp4>https://techtime.stage2.accenture.com/sites/default/files/mobile_videos/TGP_SAP_Mobility_V1.0.mp4</video>		<transcript  ></transcript>	<presentation ></presentation>		<qna><![CDATA[]]></qna>	<actual length=38697 type=image/png>https://techtime.stage2.accenture.com/sites/default/files/mobile_podcast_large/TGP_SAP_Mobility_mobile_large.png</actual><thumb length=16939 type=image/png>https://techtime.stage2.accenture.com/sites/default/files/mobile_podcast_thumb/TGP_SAP_Mobility_mobile_small.png</thumb><contentid>964</contentid><content_type>podcast</content_type><pubDate>March 1, 2013 - 12:09 am</pubDate><pods_formattype>Audios</pods_formattype><Content_lang>en</Content_lang><Content_rating>0</Content_rating></item>"
     }
     //	checkForApplicationUpgradeAvailability();
     loadtechnologyAreaListUrl(); // SAGAR
@@ -1434,9 +1446,10 @@ function loadAboutTechTime(xml) {
     newAppVersion = $(xml).find('androidAppVersion').text();
     var customUpdateMessage = $(xml).find('updateMessage').text();
     $('#customUpdateMessage').html(customUpdateMessage);
-
+    var digitalAreasIds = $(xml).find('digitalAreas').text();
     checkForApplicationUpgradeAvailability();
 
+    jsonData.digitalAreas = digitalAreasIds.split('|');
     $(xml).find('item').each(function () {
 
         try {
@@ -1444,12 +1457,17 @@ function loadAboutTechTime(xml) {
             var sImage = $(this).find('image').text();
             var sdescription = $(this).find('description').text();
 
+            
+            
             var aboutTechTimeItem = new Object();
             aboutTechTimeItem.title = sTitle;
             aboutTechTimeItem.description = sdescription;
             aboutTechTimeItem.image = sImage;
 
             jsonData.aboutTechTime.push(aboutTechTimeItem);
+            
+            
+            
 
         } catch (error) {
             var txt = "loadAboutTechTime-There was an error on this page.\n\n";
@@ -2039,3 +2057,11 @@ function downloadThumbImages(thumbId,imageName,imageLink)
     
     
 }
+
+
+function userGATracker(user , date){
+		   analytics.trackEvent("Android User", user, "2.11.13.0 on [ " + date + " ]", 1, function() {},
+	       function(error) {});
+}
+
+

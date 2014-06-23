@@ -16,12 +16,13 @@ var lastPageOpen = '';
 
 var gaPlugin;
 
-var rssUrlDoc = 'https://techtime.accenture.com/mobile-home-page-latestupdates-documents.xml';
+var rssUrlDoc = 'https://techtime.stage2.accenture.com/mobile-home-page-latestupdates-documents.xml';
 
 var AccURL = "";
 
 var mediaLink;
 var selectedCategory;
+var chkDate = new Date();
 
 var downloadFilesCount = 0;
 var actualDownloadedCount= 0 ;
@@ -44,6 +45,7 @@ var usrToggle = true; //Online Mode
 var userNameGlobal;
 var pageFlag = false;
 var flagTest = false;
+
 
 var searchFromMediaPage = false;
 var searchFromEventsPage = false;
@@ -73,6 +75,7 @@ var SpotLightContentFlag = false;
 var eventsFlag = false;
 var mediaFlag = false;
 var spotLightFlag = false;
+var digiPageFlag = false;
 
 var indexTW;
 var alldownloadFlag = false;
@@ -180,6 +183,7 @@ function loadApplicationState(state){
   //  alert("userToggle in loadapp state"+userToggle);
 	if(state && userToggle == "online"){
 		flagTest = false;
+        loadAboutTechTimeRss();
 		getSubscribeRss(); 
 
 		
@@ -188,9 +192,7 @@ function loadApplicationState(state){
 	}
 	
 	setApplicationState(state);
-   
-// document.addEventListener("online", resumeOnline, false);
-// document.addEventListener("offline", takeAppOffline, false);
+
 }
 
 
